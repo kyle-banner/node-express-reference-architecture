@@ -1,2 +1,2 @@
-# node-express-reference-architecture
+# NodeJS+Express Reference Architecture
 NodeJS+Express Reference Architecture
