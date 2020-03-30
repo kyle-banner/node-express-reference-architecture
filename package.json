@@ -9,7 +9,7 @@
     "prestart": "npm run prettify && npm run build",
     "prettify": "prettier --write \"./**/*.{ts,json}\"",
     "start": "node -r dotenv/config .",
-    "start:watch": "nodemon",
+    "start:watch": "nodemon --silent",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
