@@ -1,6 +1,5 @@
 import Controller from '../../controller';
 import { TYPES } from '../../types';
-// import Dispatcher from "../../lib/dispatcher";
 import { inject, injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import UserViewmodelDto from '../../models/Employee';

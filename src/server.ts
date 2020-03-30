@@ -1,9 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
-// import routes from './routes';
 import Controller from './controller';
 import container from './inversify.config';
-import EmployeesController from './services/employees/employees.controller';
 import { TYPES } from './types';
 
 class App {
