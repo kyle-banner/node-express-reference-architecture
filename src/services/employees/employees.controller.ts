@@ -14,8 +14,11 @@ class EmployeesController extends Controller {
     this.initializeRoutes();
   }
 
-  public initializeRoutes(): void {
-    this.router.get('/', (req, res, next) => this.employeesService.getEmployees());
+  public initializeRoutes() {
+    this.router.get('/', async (req, res, next) => {
+      const employees = await this.employeesService.getEmployees();
+      res.send(employees);
+    });
   }
 }
 

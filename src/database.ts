@@ -2,22 +2,22 @@ import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import fs from 'fs';
 
-let globalDb;
+let database: sqlite3.Database;
 
 function deleteDbFile() {
   const filePath = `./${process.env.SQLITE_DB_SOURCE_FILE}`;
-  fs.unlink(filePath, (err) => {
+  try {
+    fs.unlinkSync(filePath);
+    // tslint:disable-next-line: no-console
+    console.info('Database file deleted successfully.');
+  } catch (err) {
     if (err && err.code === 'ENOENT') {
       // tslint:disable-next-line: no-console
       console.info("Database file doesn't exist.");
-    } else if (err) {
-      // tslint:disable-next-line: no-console
-      console.error('Error occurred while trying to remove database file.');
     } else {
-      // tslint:disable-next-line: no-console
-      console.info('Removed database file successfully.');
+      throw err;
     }
-  });
+  }
 }
 
 async function createDb() {
@@ -28,15 +28,15 @@ async function createDb() {
     throw new Error('sqlite db source file environment variable is undefined');
   }
   deleteDbFile();
-  open({
+  open<sqlite3.Database, sqlite3.Statement>({
     filename: dbSourceFile,
     driver: sqlite3.Database,
   }).then(async (db: any) => {
-    await createTable(db);
+    await createTables(db);
   });
 }
 
-async function createTable(db: any) {
+async function createTables(db: any) {
   await db.exec(`CREATE TABLE companies (id INTEGER PRIMARY KEY, name TEXT NOT NULL);`);
   await db.exec(
     `CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT NOT NULL, company_id INTEGER NOT NULL, email TEXT NOT NULL, FOREIGN KEY (company_id) REFERENCES companies (id));`
@@ -49,14 +49,9 @@ async function insertRows(db: any) {
   await db.run(insert2, [5678, 'Slalom']);
   const insert = 'INSERT INTO employees (id, name, company_id, email) VALUES (?,?,?,?)';
   await db.run(insert, [1234, 'Kyle Banner', 5678, 'kyle.banner@slalom.com']);
-  await readAllRows(db);
-  globalDb = db;
+  database = db;
   // tslint:disable-next-line: no-console
   console.info('Database seeded successfully.');
 }
 
-async function readAllRows(db: any) {
-  const allRows = await db.all('SELECT id, name FROM employees');
-}
-
-export { createDb, globalDb };
+export { createDb, database };
