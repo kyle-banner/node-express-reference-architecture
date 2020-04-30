@@ -1,5 +1,5 @@
-import Controller from '../../controller';
-import { TYPES } from '../../types';
+import Controller from '@src/controller';
+import { TYPES } from '@src/types';
 import { inject, injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 

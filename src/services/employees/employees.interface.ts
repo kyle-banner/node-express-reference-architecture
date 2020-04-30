@@ -1,4 +1,4 @@
-import Employee from '../../models/Employee';
+import Employee from '@models/Employee';
 
 interface IEmployeesService {
   getEmployees(): Promise<Employee[]>;
