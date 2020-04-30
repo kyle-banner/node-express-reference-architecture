@@ -3,7 +3,6 @@ import express from 'express';
 import Controller from './controller';
 import container from './inversify.config';
 import { TYPES } from './types';
-// @ts-ignore
 import { createDb } from './database';
 
 class App {
