@@ -3,6 +3,8 @@ import express from 'express';
 import Controller from './controller';
 import container from './inversify.config';
 import { TYPES } from './types';
+// @ts-ignore
+import { createDb } from './database';
 
 class App {
   public app: express.Application;
@@ -21,7 +23,12 @@ class App {
       console.log(`Server listening on port ${process.env.PORT}`);
     });
   }
+
+  async createDb(): Promise<void> {
+    await createDb();
+  }
 }
 
 const app: App = new App();
+app.createDb();
 app.listen();
