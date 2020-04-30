@@ -7,6 +7,7 @@ import { database } from '../../database';
 class EmployeesService implements IEmployeesService {
   async getEmployees(): Promise<Employee[]> {
     const allRows: any = await database.all('SELECT * FROM employees');
+    // TODO: use orm here instead of assuming Employee[], possibly convert to sequelize
     const employees: Employee[] = allRows;
     return employees;
   }
