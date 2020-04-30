@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
-import { database } from '@src/database';
+import { database } from '../../database';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
