@@ -1,18 +1,31 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
-import { database } from '../../database';
+import EmployeeRequest from '@models/EmployeeRequest';
+import { employees, employee } from './employees.mockData';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
-  async getEmployees(): Promise<Employee[]> {
-    const allRows: any = await database.all('SELECT * FROM employees');
-    // TODO: use orm here instead of assuming Employee[], possibly convert to sequelize
-    const employees: Employee[] = allRows;
+  getEmployees(): Employee[] {
     return employees;
   }
-  getEmployeeById(id: string): Promise<Employee | undefined> {
-    throw new Error('Method not implemented.');
+  getEmployeeById(id: number): Employee | undefined {
+    if (id === 1234) {
+      return employee;
+    }
+    return undefined;
+  }
+  createEmployee(employeeRequest: EmployeeRequest): Employee {
+    const createdEmployee: Employee = {
+      id: 6789,
+      name: employeeRequest.name,
+      employer: {
+        id: 3456,
+        name: 'Slalom',
+      },
+      email: employeeRequest.email,
+    };
+    return createdEmployee;
   }
 }
 

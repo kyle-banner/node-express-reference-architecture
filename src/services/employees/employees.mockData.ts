@@ -6,15 +6,31 @@ const kyleBanner: Employee = {
     firstName: 'Kyle',
     middleName: 'Daniel',
     lastName: 'Banner',
-    alias: 'kyle.banner',
+    alias: '',
   },
   employer: {
-    id: 2345,
+    id: 5678,
     name: 'Slalom',
   },
   email: 'kyle.banner@slalom.com',
 };
 
-const employees: Employee[] = [kyleBanner];
+const ryanBray: Employee = {
+  id: 2345,
+  name: {
+    firstName: 'Ryan',
+    middleName: '',
+    lastName: 'Bray',
+    alias: '',
+  },
+  employer: {
+    id: 5678,
+    name: 'Slalom',
+  },
+  email: 'ryan.bray@slalom.com',
+};
 
-export default employees;
+const employee: Employee = kyleBanner;
+const employees: Employee[] = [kyleBanner, ryanBray];
+
+export { employee, employees };
