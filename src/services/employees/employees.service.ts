@@ -1,9 +1,11 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
-import EmployeeRequest from '@models/EmployeeRequest';
+import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 import { employees, employee } from './employees.mockData';
-import Name from '@models/PersonName';
+import Name from '@models/Name';
+import Title from '@models/Title';
+import Practice from '@models/Practice';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
@@ -16,15 +18,13 @@ class EmployeesService implements IEmployeesService {
     }
     return undefined;
   }
-  createEmployee(employeeRequest: EmployeeRequest): Employee {
+  createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
     const createdEmployee: Employee = {
       id: 6789,
-      name: employeeRequest.name,
-      employer: {
-        id: 3456,
-        name: 'Slalom',
-      },
-      email: employeeRequest.email,
+      name: createEmployeeRequest.name,
+      email: createEmployeeRequest.email,
+      title: Title.AN,
+      practice: Practice.OE,
     };
     return createdEmployee;
   }
@@ -32,11 +32,9 @@ class EmployeesService implements IEmployeesService {
     const updatedEmployee: Employee = {
       id: 6789,
       name,
-      employer: {
-        id: 3456,
-        name: 'Slalom',
-      },
       email: 'example1234@company.com',
+      title: Title.SP,
+      practice: Practice.DA,
     };
     return updatedEmployee;
   }
@@ -47,11 +45,9 @@ class EmployeesService implements IEmployeesService {
         firstName: 'John',
         lastName: 'Smith',
       },
-      employer: {
-        id: 3456,
-        name: 'Slalom',
-      },
       email,
+      title: Title.SA,
+      practice: Practice.DL,
     };
     return updatedEmployee;
   }

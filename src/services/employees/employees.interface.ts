@@ -1,11 +1,11 @@
 import Employee from '@models/Employee';
-import EmployeeRequest from '@models/EmployeeRequest';
-import Name from '@models/PersonName';
+import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
+import Name from '@models/Name';
 
 interface IEmployeesService {
   getEmployees(): Employee[];
   getEmployeeById(id: number): Employee | undefined;
-  createEmployee(employee: EmployeeRequest): Employee;
+  createEmployee(employee: CreateEmployeeRequest): Employee;
   updateEmployeeName(name: Name): Employee;
   updateEmployeeEmail(email: string): Employee;
   deleteEmployee(id: number): boolean;

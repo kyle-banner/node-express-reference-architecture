@@ -1,11 +1,13 @@
-import Name from './PersonName';
-import Company from './Company';
+import Name from './Name';
+import Practice from './Practice';
+import Title from './Title';
 
 interface Employee {
   id: number;
   name: Name;
-  employer: Company;
+  title: Title;
   email: string;
+  practice: Practice;
 }
 
 export default Employee;

@@ -1,4 +1,6 @@
 import Employee from '@models/Employee';
+import Practice from '@models/Practice';
+import Title from '@models/Title';
 
 const kyleBanner: Employee = {
   id: 1234,
@@ -6,12 +8,9 @@ const kyleBanner: Employee = {
     firstName: 'Kyle',
     middleName: 'Daniel',
     lastName: 'Banner',
-    alias: '',
   },
-  employer: {
-    id: 5678,
-    name: 'Slalom',
-  },
+  practice: Practice.TE,
+  title: Title.SA,
   email: 'kyle.banner@slalom.com',
 };
 
@@ -23,10 +22,8 @@ const ryanBray: Employee = {
     lastName: 'Bray',
     alias: '',
   },
-  employer: {
-    id: 5678,
-    name: 'Slalom',
-  },
+  practice: Practice.TE,
+  title: Title.SP,
   email: 'ryan.bray@slalom.com',
 };
 
