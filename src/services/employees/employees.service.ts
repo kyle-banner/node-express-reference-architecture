@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { MongoClient as mongo } from 'mongodb';
+import AWS from 'aws-sdk';
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
