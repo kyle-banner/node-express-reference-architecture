@@ -1,3 +1,5 @@
+/* tslint:disable */
+import { MongoClient as mongo } from 'mongodb';
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
@@ -19,6 +21,29 @@ class EmployeesService implements IEmployeesService {
     return undefined;
   }
   createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
+    mongo.connect(
+      'mongodb://localhost:27017',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      async (err, client) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const collections = await client.db('test').listCollections().toArray();
+        console.log(collections);
+        const collection = await client.db('test').collection('asdf');
+        collection.insertOne({ name: 'Kyle' }, (err, result) => {
+          console.log('inserted');
+          console.log(result);
+        });
+        collection.find().toArray((err, items) => {
+          console.log(items);
+        });
+      }
+    );
     const createdEmployee: Employee = {
       id: 6789,
       name: createEmployeeRequest.name,

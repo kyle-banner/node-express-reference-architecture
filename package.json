@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/kyle-banner/node-express-reference-architecture#readme",
   "dependencies": {
+    "@types/mongodb": "^3.5.18",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "inversify": "^5.0.1",
+    "mongodb": "^3.5.8",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.2.0"
