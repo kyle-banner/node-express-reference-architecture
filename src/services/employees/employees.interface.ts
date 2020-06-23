@@ -3,7 +3,7 @@ import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 import Name from '@models/Name';
 
 interface IEmployeesService {
-  getEmployees(): Employee[];
+  getEmployees(): Promise<Employee[]>;
   getEmployeeById(id: number): Employee | undefined;
   createEmployee(employee: CreateEmployeeRequest): Employee;
   updateEmployeeName(name: Name): Employee;
