@@ -1,12 +1,10 @@
-/* tslint:disable */
 import { MongoClient as mongo } from 'mongodb';
-import query from '../../util/mongoClient';
-import AWS from 'aws-sdk';
+import getCollection from '../../util/mongoClient';
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
 import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
-import { employees, employee } from './employees.mockData';
+import { employee } from './employees.mockData';
 import Name from '@models/Name';
 import Title from '@models/Title';
 import Practice from '@models/Practice';
@@ -14,9 +12,7 @@ import Practice from '@models/Practice';
 @injectable()
 class EmployeesService implements IEmployeesService {
   async getEmployees(): Promise<Employee[]> {
-    // should be Promise<Employee[]>
-    const something = await query();
-    return something;
+    return await getCollection('employees');
   }
   getEmployeeById(id: number): Employee | undefined {
     if (id === 1234) {
@@ -40,16 +36,11 @@ class EmployeesService implements IEmployeesService {
       },
       async (err, client) => {
         if (err) {
-          console.error(err);
           return;
         }
         const collection = await client.db('test').collection('asdf');
-        collection.insertOne(createdEmployee, (err, result) => {
-          console.log(`Inserted ${createEmployeeRequest.name}`);
-        });
-        collection.find().toArray((err, items) => {
-          console.log(items);
-        });
+        // collection.insertOne(createdEmployee, (err, result) => {});
+        // collection.find().toArray((err, items) => {});
       }
     );
     return createdEmployee;
