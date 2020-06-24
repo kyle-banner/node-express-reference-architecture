@@ -1,6 +1,6 @@
 import { MongoClient as mongo } from 'mongodb';
-import getCollection from '../../util/mongoClient';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../types';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
 import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
@@ -8,11 +8,18 @@ import { employee } from './employees.mockData';
 import Name from '@models/Name';
 import Title from '@models/Title';
 import Practice from '@models/Practice';
+import IMongoClient from 'src/util/mongoClient.interface';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
+  private mongoClient: IMongoClient;
+
+  constructor(@inject(TYPES.MongoClient) injectedMongoClient: IMongoClient) {
+    this.mongoClient = injectedMongoClient;
+  }
+
   async getEmployees(): Promise<Employee[]> {
-    return await getCollection('employees');
+    return await this.mongoClient.getCollection('employees', 'test');
   }
   getEmployeeById(id: number): Employee | undefined {
     if (id === 1234) {
@@ -28,21 +35,22 @@ class EmployeesService implements IEmployeesService {
       title: Title.AN,
       practice: Practice.OE,
     };
-    mongo.connect(
-      'mongodb://localhost:27017',
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      async (err, client) => {
-        if (err) {
-          return;
-        }
-        const collection = await client.db('test').collection('asdf');
-        // collection.insertOne(createdEmployee, (err, result) => {});
-        // collection.find().toArray((err, items) => {});
-      }
-    );
+    // mongo.connect(
+    //   'mongodb://localhost:27017',
+    //   {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true,
+    //   },
+    //   async (err, client) => {
+    //     if (err) {
+    //       return;
+    //     }
+    //     const collection = await client.db('test').collection('asdf');
+    //     collection.insertOne(createdEmployee, (err, result) => {});
+    //     collection.find().toArray((err, items) => {});
+    //   }
+    // );
+    this.mongoClient.updateCollection('employees', 'test', createdEmployee);
     return createdEmployee;
   }
   updateEmployeeName(name: Name): Employee {
