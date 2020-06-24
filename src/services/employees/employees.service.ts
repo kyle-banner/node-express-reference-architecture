@@ -28,6 +28,7 @@ class EmployeesService implements IEmployeesService {
     return undefined;
   }
   createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
+    //TODO: clean up model and pass all the way through instead of updating here
     const createdEmployee: Employee = {
       id: Math.floor(Math.random() * 10000),
       name: createEmployeeRequest.name,
@@ -35,21 +36,6 @@ class EmployeesService implements IEmployeesService {
       title: Title.AN,
       practice: Practice.OE,
     };
-    // mongo.connect(
-    //   'mongodb://localhost:27017',
-    //   {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true,
-    //   },
-    //   async (err, client) => {
-    //     if (err) {
-    //       return;
-    //     }
-    //     const collection = await client.db('test').collection('asdf');
-    //     collection.insertOne(createdEmployee, (err, result) => {});
-    //     collection.find().toArray((err, items) => {});
-    //   }
-    // );
     this.mongoClient.updateCollection('employees', 'test', createdEmployee);
     return createdEmployee;
   }

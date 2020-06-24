@@ -34,34 +34,8 @@ class MongoClient implements IMongoClient {
   public async updateCollection(collection: string, database: string, objectToInsert: any): Promise<any[]> {
     const dbCollection = await this.client.db(database).collection(collection);
     await dbCollection.insertOne(objectToInsert);
-    // tslint:disable-next-line:no-console
-    console.log('inserted...');
     return objectToInsert;
   }
 }
 
 export default MongoClient;
-
-// import { MongoClient as mongo } from 'mongodb';
-
-// async function getCollection(collection: string, database: string = 'test') {
-//   const dbUrl: string = process.env.DB_URL || 'mongodb://localhost:27017';
-//   const db = await mongo.connect(dbUrl, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   });
-//   const dbCollection = await db.db(database).collection(collection);
-//   return await dbCollection.find().toArray();
-// }
-
-// async function updateCollection(collection: string, database: string = 'test'){
-//   const dbUrl: string = process.env.DB_URL || 'mongodb://localhost:27017';
-//   const db = await mongo.connect(dbUrl, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   });
-//   const dbCollection = await db.db(database).collection(collection);
-//   return await dbCollection.find().toArray();
-// }
-
-// export default getCollection;
