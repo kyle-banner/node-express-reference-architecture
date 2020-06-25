@@ -28,7 +28,7 @@ class EmployeesService implements IEmployeesService {
     return undefined;
   }
   createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
-    //TODO: clean up model and pass all the way through instead of updating here
+    // TODO: clean up model and pass all the way through instead of updating here
     const createdEmployee: Employee = {
       id: Math.floor(Math.random() * 10000),
       name: createEmployeeRequest.name,

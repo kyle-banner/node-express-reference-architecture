@@ -1,5 +1,8 @@
+import { body, validationResult } from 'express-validator';
+import express from 'express';
 import Controller from '../../controller';
 import { TYPES } from '../../types';
+import requestErrorArray from '../../util/validateEndpoint';
 import { inject, injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 
@@ -31,29 +34,18 @@ class EmployeesController extends Controller {
       const employees = await this.employeesService.getEmployeeById(numberId);
       res.send(employees);
     });
-    this.router.post('/', async (req, res, next) => {
-      // TODO: validation belongs in the service
-      // TODO: use Elvis operator or conditional _.get check
-      if (!req.body) {
-        res.status(400).send({
-          message: 'Must send an employee in request body',
-        });
-      }
-      if (req.body && req.body.name) {
-        if (!req.body.name.firstName) {
-          res.status(400).send({
-            message: 'First name is a required field',
-          });
+    this.router.post(
+      '/',
+      [body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()],
+      async (req: express.Request, res: express.Response) => {
+        const errors = requestErrorArray(req);
+        if (errors.length) {
+          return res.status(422).json({ errors });
         }
-        if (!req.body.name.lastName) {
-          res.status(400).send({
-            message: 'Last name is a required field',
-          });
-        }
+        const createdEmployee = await this.employeesService.createEmployee(req.body);
+        res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
       }
-      const createdEmployee = await this.employeesService.createEmployee(req.body);
-      res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
-    });
+    );
     this.router.patch('/:id/', async (req, res, next) => {
       // TODO: validation belongs in the service
       // TODO: use Elvis operator or conditional _.get check
