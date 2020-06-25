@@ -39,29 +39,29 @@ class EmployeesService implements IEmployeesService {
     this.mongoClient.updateCollection('employees', 'test', createdEmployee);
     return createdEmployee;
   }
-  updateEmployeeName(name: Name): Employee {
-    const updatedEmployee: Employee = {
-      id: 6789,
-      name,
-      email: 'example1234@company.com',
-      title: Title.SP,
-      practice: Practice.DA,
-    };
-    return updatedEmployee;
-  }
-  updateEmployeeEmail(email: string): Employee {
-    const updatedEmployee: Employee = {
-      id: 6789,
-      name: {
-        firstName: 'John',
-        lastName: 'Smith',
-      },
-      email,
-      title: Title.SA,
-      practice: Practice.DL,
-    };
-    return updatedEmployee;
-  }
+  // updateEmployeeName(name: Name): Employee {
+  //   const updatedEmployee: Employee = {
+  //     id: 6789,
+  //     name,
+  //     email: 'example1234@company.com',
+  //     title: Title.SP,
+  //     practice: Practice.DA,
+  //   };
+  //   return updatedEmployee;
+  // }
+  // updateEmployeeEmail(email: string): Employee {
+  //   const updatedEmployee: Employee = {
+  //     id: 6789,
+  //     name: {
+  //       firstName: 'John',
+  //       lastName: 'Smith',
+  //     },
+  //     email,
+  //     title: Title.SA,
+  //     practice: Practice.DL,
+  //   };
+  //   return updatedEmployee;
+  // }
   deleteEmployee(id: number): boolean {
     if (id !== 1234) throw new Error('Employee not found.');
     return true;

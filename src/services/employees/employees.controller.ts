@@ -25,7 +25,7 @@ class EmployeesController extends Controller {
     this.router.get('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
-        return res.status(422).json({ errors });
+        return res.status(400).json({ errors });
       }
       const numberId = parseInt(req.params.id, 10);
       const employees = await this.employeesService.getEmployeeById(numberId);
@@ -37,29 +37,17 @@ class EmployeesController extends Controller {
       async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
         if (errors.length) {
-          return res.status(422).json({ errors });
+          return res.status(400).json({ errors });
         }
         const createdEmployee = await this.employeesService.createEmployee(req.body);
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
-      }
-    );
-    this.router.patch(
-      '/:id/',
-      [body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()],
-      async (req: express.Request, res: express.Response) => {
-        const errors = requestValidationFailures(req);
-        if (errors.length) {
-          return res.status(422).json({ errors });
-        }
-        const updatedEmployee = await this.employeesService.updateEmployeeName(req.body);
-        res.status(200).send(updatedEmployee);
       }
     );
     // support this.router.put
     this.router.delete('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
-        return res.status(422).json({ errors });
+        return res.status(400).json({ errors });
       }
       try {
         const numberId = parseInt(req.params.id, 10);
