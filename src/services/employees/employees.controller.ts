@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, param } from 'express-validator';
 import express from 'express';
 import Controller from '../../controller';
 import { TYPES } from '../../types';
@@ -18,19 +18,16 @@ class EmployeesController extends Controller {
   }
 
   public initializeRoutes() {
-    this.router.get('/', async (req, res, next) => {
+    this.router.get('/', async (req: express.Request, res: express.Response) => {
       const employees = await this.employeesService.getEmployees();
       res.send(employees);
     });
-    this.router.get('/:id', async (req, res, next) => {
-      // TODO: validation belongs in the service
-      // this validation is unnecessary
-      const numberId = parseInt(req.params.id, 10);
-      if (isNaN(numberId)) {
-        res.status(422).send({
-          message: 'Employee id must be an integer',
-        });
+    this.router.get('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
+      const errors = requestValidationFailures(req);
+      if (errors.length) {
+        return res.status(422).json({ errors });
       }
+      const numberId = parseInt(req.params.id, 10);
       const employees = await this.employeesService.getEmployeeById(numberId);
       res.send(employees);
     });
@@ -46,38 +43,26 @@ class EmployeesController extends Controller {
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
       }
     );
-    this.router.patch('/:id/', [body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()], async (req, res, next) => {
-      // TODO: validation belongs in the service
-      // TODO: use Elvis operator or conditional _.get check
-      if (!req.body.name) {
-        res.status(400).send({
-          message: 'First and last name are required.',
-        });
-      } else if (req.body.name) {
-        if (!req.body.name.firstName) {
-          res.status(422).send({
-            message: 'First name is a required field.',
-          });
+    this.router.patch(
+      '/:id/',
+      [body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()],
+      async (req: express.Request, res: express.Response) => {
+        const errors = requestValidationFailures(req);
+        if (errors.length) {
+          return res.status(422).json({ errors });
         }
-        if (!req.body.name.lastName) {
-          res.status(422).send({
-            message: 'Last name is a required field.',
-          });
-        }
+        const updatedEmployee = await this.employeesService.updateEmployeeName(req.body);
+        res.status(200).send(updatedEmployee);
       }
-      const updatedEmployee = await this.employeesService.updateEmployeeName(req.body);
-      res.status(200).send(updatedEmployee);
-    });
+    );
     // support this.router.put
-    this.router.delete('/:id', async (req, res, next) => {
-      const numberId = parseInt(req.params.id, 10);
-      // TODO: validation belongs in the service
-      if (isNaN(numberId)) {
-        res.status(422).send({
-          message: 'Employee id must be an integer',
-        });
+    this.router.delete('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
+      const errors = requestValidationFailures(req);
+      if (errors.length) {
+        return res.status(422).json({ errors });
       }
       try {
+        const numberId = parseInt(req.params.id, 10);
         await this.employeesService.deleteEmployee(numberId);
       } catch (e) {
         // TODO: extend error so that not found and could not be deleted can be different responses
