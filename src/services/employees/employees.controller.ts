@@ -2,7 +2,7 @@ import { body, validationResult } from 'express-validator';
 import express from 'express';
 import Controller from '../../controller';
 import { TYPES } from '../../types';
-import requestErrorArray from '../../util/validateEndpoint';
+import requestValidationFailures from '../../util/validateEndpoint';
 import { inject, injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 
@@ -38,7 +38,7 @@ class EmployeesController extends Controller {
       '/',
       [body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()],
       async (req: express.Request, res: express.Response) => {
-        const errors = requestErrorArray(req);
+        const errors = requestValidationFailures(req);
         if (errors.length) {
           return res.status(422).json({ errors });
         }
@@ -46,7 +46,7 @@ class EmployeesController extends Controller {
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
       }
     );
-    this.router.patch('/:id/', async (req, res, next) => {
+    this.router.patch('/:id/', [body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()], async (req, res, next) => {
       // TODO: validation belongs in the service
       // TODO: use Elvis operator or conditional _.get check
       if (!req.body.name) {

@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 import express from 'express';
 
-function requestErrorArray(req: express.Request) {
+function requestValidationFailures(req: express.Request) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return errors.array();
@@ -9,4 +9,4 @@ function requestErrorArray(req: express.Request) {
   return [];
 }
 
-export default requestErrorArray;
+export default requestValidationFailures;
