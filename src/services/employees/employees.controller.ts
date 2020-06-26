@@ -61,14 +61,13 @@ class EmployeesController extends Controller {
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
       }
     );
-    this.router.delete('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
+    this.router.delete('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
         return res.status(400).json({ errors });
       }
       try {
-        const numberId = parseInt(req.params.id, 10);
-        await this.employeesService.deleteEmployee(numberId);
+        await this.employeesService.deleteEmployee(req.params.id);
       } catch (e) {
         // TODO: extend error so that not found and could not be deleted can be different responses
         res.status(404).send({

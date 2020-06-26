@@ -89,7 +89,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/employees/123",
+					"raw": "http://localhost:8080/employees/053af0ab-f4b2-4d6b-a9c9-4dae374a04d6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -97,7 +97,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						"123"
+						"053af0ab-f4b2-4d6b-a9c9-4dae374a04d6"
 					]
 				}
 			},
