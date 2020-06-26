@@ -34,8 +34,6 @@
     "inversify": "^5.0.1",
     "mongodb": "^3.5.8",
     "reflect-metadata": "^0.1.13",
-    "sqlite": "^4.0.7",
-    "sqlite3": "^4.2.0",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
