@@ -1,11 +1,10 @@
-import { MongoClient as mongo } from 'mongodb';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../../types';
 import IEmployeesService from './employees.interface';
 import Employee from '@models/Employee';
 import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
+import { v4 as uuidv4 } from 'uuid';
 import { employee } from './employees.mockData';
-import Name from '@models/Name';
 import Title from '@models/Title';
 import Practice from '@models/Practice';
 import IMongoClient from 'src/util/mongoClient.interface';
@@ -28,40 +27,14 @@ class EmployeesService implements IEmployeesService {
     return undefined;
   }
   createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
-    // TODO: clean up model and pass all the way through instead of updating here
-    const createdEmployee: Employee = {
-      id: Math.floor(Math.random() * 10000),
-      name: createEmployeeRequest.name,
-      email: createEmployeeRequest.email,
-      title: Title.AN,
-      practice: Practice.OE,
-    };
+    const createdEmployee: Employee = { ...createEmployeeRequest, id: uuidv4() };
     this.mongoClient.updateCollection('employees', 'test', createdEmployee);
     return createdEmployee;
   }
-  // updateEmployeeName(name: Name): Employee {
-  //   const updatedEmployee: Employee = {
-  //     id: 6789,
-  //     name,
-  //     email: 'example1234@company.com',
-  //     title: Title.SP,
-  //     practice: Practice.DA,
-  //   };
-  //   return updatedEmployee;
-  // }
-  // updateEmployeeEmail(email: string): Employee {
-  //   const updatedEmployee: Employee = {
-  //     id: 6789,
-  //     name: {
-  //       firstName: 'John',
-  //       lastName: 'Smith',
-  //     },
-  //     email,
-  //     title: Title.SA,
-  //     practice: Practice.DL,
-  //   };
-  //   return updatedEmployee;
-  // }
+  updateEmployee(updateEmployeeRequest: Employee): Employee {
+    this.mongoClient.updateCollection('employees', 'test', updateEmployeeRequest);
+    return updateEmployeeRequest;
+  }
   deleteEmployee(id: number): boolean {
     if (id !== 1234) throw new Error('Employee not found.');
     return true;

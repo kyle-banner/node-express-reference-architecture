@@ -43,7 +43,27 @@ class EmployeesController extends Controller {
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
       }
     );
-    // support this.router.put
+    this.router.put(
+      '/:id',
+      [
+        body('email').isEmail(),
+        body('name.firstName').not().isEmpty(),
+        body('name.lastName').not().isEmpty(),
+        param('id').not().isEmpty(),
+      ],
+      async (req: express.Request, res: express.Response) => {
+        const errors = requestValidationFailures(req);
+        if (errors.length) {
+          return res.status(400).json({ errors });
+        }
+        const employee = { ...req.body, id: req.params.id };
+        // tslint:disable-next-line: no-console
+        console.log(employee);
+        const createdEmployee = await this.employeesService.updateEmployee(employee);
+        // 201 or 200
+        res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
+      }
+    );
     this.router.delete('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {

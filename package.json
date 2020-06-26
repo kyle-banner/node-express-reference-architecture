@@ -25,6 +25,7 @@
   "homepage": "https://github.com/kyle-banner/node-express-reference-architecture#readme",
   "dependencies": {
     "@types/mongodb": "^3.5.18",
+    "@types/uuid": "^8.0.0",
     "aws-sdk": "^2.702.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -34,7 +35,8 @@
     "mongodb": "^3.5.8",
     "reflect-metadata": "^0.1.13",
     "sqlite": "^4.0.7",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@types/compression": "^1.7.0",

@@ -2,7 +2,7 @@ const enum Practice {
   TE = 'Technology Enablement',
   DA = 'Data & Analytics',
   DL = 'Delivery Leadership',
-  OE = 'Organizational Effectiveness',
+  BAS = 'Business Advisory Services',
   AC = 'Accounts',
 }
 

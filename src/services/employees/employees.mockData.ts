@@ -3,7 +3,7 @@ import Practice from '@models/Practice';
 import Title from '@models/Title';
 
 const kyleBanner: Employee = {
-  id: 1234,
+  id: 'aaaaaaaa-3b7d-4bad-9bdd-2b0d7b3dcb6d',
   name: {
     firstName: 'Kyle',
     middleName: 'Daniel',
@@ -15,7 +15,7 @@ const kyleBanner: Employee = {
 };
 
 const ryanBray: Employee = {
-  id: 2345,
+  id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
   name: {
     firstName: 'Ryan',
     middleName: '',
