@@ -25,9 +25,13 @@ class MongoClient implements IMongoClient {
       );
     }
   }
-  public async deleteResource(collection: string, database: string, objectToDelete: any): Promise<any> {
+  public async deleteResource(collection: string, database: string, objectToDelete: any): Promise<boolean> {
     const dbCollection = this.client.db(database).collection(collection);
-    return await dbCollection.deleteOne(objectToDelete);
+    const deleteOneResult = await dbCollection.deleteOne(objectToDelete);
+    if (deleteOneResult.deletedCount === 1) {
+      return true;
+    }
+    return false;
   }
 
   public async getCollection(collection: string, database: string): Promise<any[]> {
