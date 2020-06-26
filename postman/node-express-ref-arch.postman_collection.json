@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/employees/1234",
+					"raw": "http://localhost:8080/employees/053af0ab-f4b2-4d6b-a9c9-4dae374a04d6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,7 +20,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						"1234"
+						"053af0ab-f4b2-4d6b-a9c9-4dae374a04d6"
 					]
 				}
 			},
@@ -110,7 +110,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": {\n    \"firstName\": \"a\",\n\t\"lastName\": \"b\"\n  },\n  \"employerName\": \"Slalom\",\n  \"email\": \"a.b@slalom.com\"\n}",
+					"raw": "{\n  \"name\": {\n    \"firstName\": \"aasdfasdf\",\n\t\"lastName\": \"b\"\n  },\n  \"employerName\": \"Slalom\",\n  \"email\": \"a.b@slalom.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -118,7 +118,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/employees/",
+					"raw": "http://localhost:8080/employees/053af0ab-f4b2-4d6b-a9c9-4dae374a04d6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,7 +126,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						""
+						"053af0ab-f4b2-4d6b-a9c9-4dae374a04d6"
 					]
 				}
 			},

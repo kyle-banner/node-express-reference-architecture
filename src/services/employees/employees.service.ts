@@ -5,8 +5,6 @@ import Employee from '@models/Employee';
 import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 import { v4 as uuidv4 } from 'uuid';
 import { employee } from './employees.mockData';
-import Title from '@models/Title';
-import Practice from '@models/Practice';
 import IMongoClient from 'src/util/mongoClient.interface';
 
 @injectable()
@@ -20,11 +18,9 @@ class EmployeesService implements IEmployeesService {
   async getEmployees(): Promise<Employee[]> {
     return await this.mongoClient.getCollection('employees', 'test');
   }
-  getEmployeeById(id: number): Employee | undefined {
-    if (id === 1234) {
-      return employee;
-    }
-    return undefined;
+  async getEmployeeById(id: string): Promise<Employee | undefined> {
+    const employees = await this.mongoClient.getResource('employees', 'test', { id });
+    return employees;
   }
   createEmployee(createEmployeeRequest: CreateEmployeeRequest): Employee {
     const createdEmployee: Employee = { ...createEmployeeRequest, id: uuidv4() };

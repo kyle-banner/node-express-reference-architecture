@@ -22,13 +22,12 @@ class EmployeesController extends Controller {
       const employees = await this.employeesService.getEmployees();
       res.send(employees);
     });
-    this.router.get('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
+    this.router.get('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
         return res.status(400).json({ errors });
       }
-      const numberId = parseInt(req.params.id, 10);
-      const employees = await this.employeesService.getEmployeeById(numberId);
+      const employees = await this.employeesService.getEmployeeById(req.params.id);
       res.send(employees);
     });
     this.router.post(
@@ -57,8 +56,6 @@ class EmployeesController extends Controller {
           return res.status(400).json({ errors });
         }
         const employee = { ...req.body, id: req.params.id };
-        // tslint:disable-next-line: no-console
-        console.log(employee);
         const createdEmployee = await this.employeesService.updateEmployee(employee);
         // 201 or 200
         res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);

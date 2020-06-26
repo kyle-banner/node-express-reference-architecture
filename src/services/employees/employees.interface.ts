@@ -3,7 +3,7 @@ import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 
 interface IEmployeesService {
   getEmployees(): Promise<Employee[]>;
-  getEmployeeById(id: number): Employee | undefined;
+  getEmployeeById(id: string): Promise<Employee | undefined>;
   createEmployee(employee: CreateEmployeeRequest): Employee;
   updateEmployee(employee: CreateEmployeeRequest): Employee;
   deleteEmployee(id: number): boolean;

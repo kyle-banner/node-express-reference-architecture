@@ -31,6 +31,11 @@ class MongoClient implements IMongoClient {
     return await dbCollection.find().toArray();
   }
 
+  public async getResource(collection: string, database: string, objectToRetrieve: any): Promise<any> {
+    const dbCollection = this.client.db(database).collection(collection);
+    return await dbCollection.find(objectToRetrieve).toArray();
+  }
+
   public async updateCollection(collection: string, database: string, objectToInsert: any): Promise<any[]> {
     const dbCollection = await this.client.db(database).collection(collection);
     await dbCollection.insertOne(objectToInsert);
