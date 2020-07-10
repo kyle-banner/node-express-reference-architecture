@@ -11,7 +11,10 @@ class App {
   constructor() {
     this.app = express();
     this.app.use(bodyParser.json());
-    const controllers = [container.get<Controller>(TYPES.EmployeesController)];
+    const controllers = [
+      container.get<Controller>(TYPES.EmployeesController),
+      container.get<Controller>(TYPES.EncountersController),
+    ];
     controllers.forEach((controller) => {
       this.app.use(controller.basePath, controller.router);
     });
