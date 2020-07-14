@@ -1,5 +1,4 @@
 import Address from './Address';
-import Employee from './Employee';
 
 interface Meeting {
   id: string;

@@ -17,7 +17,7 @@ class MeetingsController extends Controller {
     this.initializeRoutes();
   }
 
-  public initializeRoutes() {
+  public async initializeRoutes() {
     this.router.get('/', async (req: express.Request, res: express.Response) => {
       const meetings = await this.meetingsService.getMeetings();
       res.send(meetings);
@@ -45,16 +45,17 @@ class MeetingsController extends Controller {
       ],
       async (req: express.Request, res: express.Response) => {
         const createdMeeting = await this.meetingsService.createMeeting(req.body);
-        res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
+        res.status(201).send(`${this.basePath}/${createdMeeting.id}`);
       }
     );
 
     this.router.put('/:id', async (req: express.Request, res: express.Response) => {
-      const createdMeeting = await this.meetingsService.updateMeeting(req.body);
-      if (createdMeeting.previouslyExisted) {
-        res.status(200).send(`http://localhost:8080/employees/${createdMeeting.id}`);
+      const updateMeetingRequest = { ...req.body, id: req.params.id };
+      const updatedMeeting = await this.meetingsService.updateMeeting(updateMeetingRequest);
+      if (updatedMeeting.previouslyExisted) {
+        return res.status(200).send(`${this.basePath}/${updatedMeeting.id}`);
       }
-      res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
+      res.status(201).send(`${this.basePath}/${updatedMeeting.id}`);
     });
 
     this.router.delete('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
@@ -65,7 +66,7 @@ class MeetingsController extends Controller {
 
       const deleteResult = await this.meetingsService.deleteMeeting(req.params.id);
       if (deleteResult) {
-        res.status(200).send();
+        return res.status(200).send();
       }
       res.status(404).send(`Could not find meeting with id ${req.params.id}`);
     });

@@ -1,10 +1,9 @@
-import Employee from './Employee';
 import Address from './Address';
 
 interface CreateMeetingRequest {
-  employees: Employee[];
-  scheduledTime: Date;
   address?: Address;
+  employeeIds: string[];
+  scheduledTime: string;
 }
 
 export default CreateMeetingRequest;

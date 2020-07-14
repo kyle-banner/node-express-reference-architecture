@@ -17,7 +17,7 @@ class EmployeesController extends Controller {
     this.initializeRoutes();
   }
 
-  public initializeRoutes() {
+  public async initializeRoutes() {
     this.router.get('/', async (req: express.Request, res: express.Response) => {
       const employees = await this.employeesService.getEmployees();
       res.send(employees);
@@ -43,7 +43,7 @@ class EmployeesController extends Controller {
         }
 
         const createdEmployee = await this.employeesService.createEmployee(req.body);
-        res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
+        res.status(201).send(`${this.basePath}/${createdEmployee.id}`);
       }
     );
 
@@ -64,9 +64,9 @@ class EmployeesController extends Controller {
         const employee = { ...req.body, id: req.params.id };
         const createdEmployee = await this.employeesService.updateEmployee(employee);
         if (createdEmployee.previouslyExisted) {
-          res.status(200).send(`http://localhost:8080/employees/${createdEmployee.id}`);
+          return res.status(200).send(`${this.basePath}/${createdEmployee.id}`);
         }
-        res.status(201).send(`http://localhost:8080/employees/${createdEmployee.id}`);
+        res.status(201).send(`${this.basePath}/${createdEmployee.id}`);
       }
     );
 
@@ -77,7 +77,7 @@ class EmployeesController extends Controller {
       }
       const deleteResult = await this.employeesService.deleteEmployee(req.params.id);
       if (deleteResult) {
-        res.status(200).send();
+        return res.status(200).send();
       }
       res.status(404).send(`Could not find employee with id ${req.params.id}`);
     });
