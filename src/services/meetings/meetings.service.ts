@@ -35,10 +35,10 @@ class MeetingsService implements IMeetingsService {
     if (meetingArray.length) {
       meetingPreviouslyExisted = true;
       meetingArray.forEach(async (meeting: Meeting) => {
-        await this.mongoClient.deleteResource('employees', 'test', { id: meeting.id });
+        await this.mongoClient.deleteResource('meetings', 'test', { id: meeting.id });
       });
     }
-    await this.mongoClient.updateCollection('employees', 'test', updateMeetingRequest);
+    await this.mongoClient.updateCollection('meetings', 'test', updateMeetingRequest);
     return { previouslyExisted: meetingPreviouslyExisted, ...updateMeetingRequest };
   }
 
