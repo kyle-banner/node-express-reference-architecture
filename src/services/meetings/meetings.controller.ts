@@ -4,23 +4,23 @@ import Controller from '../../controller';
 import { TYPES } from '../../types';
 import requestValidationFailures from '../../util/validateEndpoint';
 import { inject, injectable } from 'inversify';
-import IEncountersService from './encounters.interface';
+import IMeetingsService from './meetings.interface';
 
 @injectable()
-class EncountersController extends Controller {
-  public basePath: string = '/encounters';
-  private encountersService: IEncountersService;
+class MeetingsController extends Controller {
+  public basePath: string = '/meetings';
+  private meetingsService: IMeetingsService;
 
-  constructor(@inject(TYPES.EncountersService) encountersService: IEncountersService) {
+  constructor(@inject(TYPES.MeetingsService) meetingsService: IMeetingsService) {
     super();
-    this.encountersService = encountersService;
+    this.meetingsService = meetingsService;
     this.initializeRoutes();
   }
 
   public initializeRoutes() {
     this.router.get('/', async (req: express.Request, res: express.Response) => {
-      const encounters = await this.encountersService.getEncounters();
-      res.send(encounters);
+      const meetings = await this.meetingsService.getMeetings();
+      res.send(meetings);
     });
 
     this.router.get('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
@@ -29,21 +29,21 @@ class EncountersController extends Controller {
         return res.status(400).json({ errors });
       }
 
-      const encounter = await this.encountersService.getEncounterById(req.params.id);
-      res.send(encounter);
+      const meeting = await this.meetingsService.getMeetingById(req.params.id);
+      res.send(meeting);
     });
 
     this.router.post('/', async (req: express.Request, res: express.Response) => {
-      const createdEncounter = await this.encountersService.createEncounter(req.body);
-      res.status(201).send(`http://localhost:8080/employees/${createdEncounter.id}`);
+      const createdMeeting = await this.meetingsService.createMeeting(req.body);
+      res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
     });
 
     this.router.put('/:id', async (req: express.Request, res: express.Response) => {
-      const createdEncounter = await this.encountersService.updateEncounter(req.body);
-      if (createdEncounter.previouslyExisted) {
-        res.status(200).send(`http://localhost:8080/employees/${createdEncounter.id}`);
+      const createdMeeting = await this.meetingsService.updateMeeting(req.body);
+      if (createdMeeting.previouslyExisted) {
+        res.status(200).send(`http://localhost:8080/employees/${createdMeeting.id}`);
       }
-      res.status(201).send(`http://localhost:8080/employees/${createdEncounter.id}`);
+      res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
     });
 
     this.router.delete('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
@@ -52,13 +52,13 @@ class EncountersController extends Controller {
         return res.status(400).json({ errors });
       }
 
-      const deleteResult = await this.encountersService.deleteEncounter(req.params.id);
+      const deleteResult = await this.meetingsService.deleteMeeting(req.params.id);
       if (deleteResult) {
         res.status(200).send();
       }
-      res.status(404).send(`Could not find encounter with id ${req.params.id}`);
+      res.status(404).send(`Could not find meeting with id ${req.params.id}`);
     });
   }
 }
 
-export default EncountersController;
+export default MeetingsController;

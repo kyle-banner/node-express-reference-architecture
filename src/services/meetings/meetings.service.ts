@@ -1,29 +1,30 @@
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../../types';
-import Employee from '@models/Employee';
+import CreateMeetingRequest from '@models/CreateMeetingRequest';
 import Address from '@models/Address';
 import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
 import IMongoClient from 'src/util/mongoClient.interface';
-import IEncountersService from './encounters.interface';
-import Encounter from '@models/Encounter';
+import IMeetingsService from './meetings.interface';
+import Meeting from '@models/Meeting';
 import { create } from 'domain';
 
 @injectable()
-class EncountersService implements IEncountersService {
+class MeetingsService implements IMeetingsService {
   private mongoClient: IMongoClient;
 
   constructor(@inject(TYPES.MongoClient) injectedMongoClient: IMongoClient) {
     this.mongoClient = injectedMongoClient;
   }
 
-  async getEncounters(): Promise<any[]> {
-    return await this.mongoClient.getCollection('encounters', 'test');
+  async getMeetings(): Promise<any[]> {
+    return await this.mongoClient.getCollection('meetings', 'test');
   }
-  getEncounterById(id: string): Promise<any> {
+  getMeetingById(id: string): Promise<any> {
     throw new Error('Method not implemented.');
   }
-  async createEncounter(employees: Employee[], address?: Address): Promise<any> {
-    const createdEncounter: Encounter = {
+  async createMeeting(createMeetingRequest: CreateMeetingRequest): Promise<any> {
+    // employees: Employee[], address?: Address
+    const createdMeeting: Meeting = {
       id: 'asdf',
       address: {
         id: 'hjkl',
@@ -33,16 +34,17 @@ class EncountersService implements IEncountersService {
         zipCode: 80202,
       },
       employeeIds: ['1234', '5678'],
+      scheduledTime: new Date().toISOString(),
     };
-    await this.mongoClient.updateCollection('encounters', 'test', createdEncounter);
-    return createdEncounter;
+    await this.mongoClient.updateCollection('meetings', 'test', createdMeeting);
+    return createdMeeting;
   }
-  updateEncounter(id: string): Promise<UpdateEmployeeResponse> {
+  updateMeeting(id: string): Promise<UpdateEmployeeResponse> {
     throw new Error('Method not implemented.');
   }
-  deleteEncounter(id: string): Promise<boolean> {
+  deleteMeeting(id: string): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 }
 
-export default EncountersService;
+export default MeetingsService;
