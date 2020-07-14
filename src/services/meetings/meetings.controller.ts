@@ -33,10 +33,21 @@ class MeetingsController extends Controller {
       res.send(meeting);
     });
 
-    this.router.post('/', async (req: express.Request, res: express.Response) => {
-      const createdMeeting = await this.meetingsService.createMeeting(req.body);
-      res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
-    });
+    this.router.post(
+      '/',
+      [
+        body('employeeIds').isArray(),
+        body('scheduledTime').isISO8601(),
+        body('address.line1').isString(),
+        body('address.city').isString(),
+        body('address.state').isString(),
+        body('address.zipCode').isNumeric(),
+      ],
+      async (req: express.Request, res: express.Response) => {
+        const createdMeeting = await this.meetingsService.createMeeting(req.body);
+        res.status(201).send(`http://localhost:8080/employees/${createdMeeting.id}`);
+      }
+    );
 
     this.router.put('/:id', async (req: express.Request, res: express.Response) => {
       const createdMeeting = await this.meetingsService.updateMeeting(req.body);

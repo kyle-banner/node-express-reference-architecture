@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { TYPES } from '../../types';
 import CreateMeetingRequest from '@models/CreateMeetingRequest';
 import Address from '@models/Address';
-import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
+import UpdateMeetingResponse from '@models/UpdateMeetingResponse';
 import IMongoClient from 'src/util/mongoClient.interface';
 import IMeetingsService from './meetings.interface';
 import Meeting from '@models/Meeting';
@@ -23,24 +23,20 @@ class MeetingsService implements IMeetingsService {
     throw new Error('Method not implemented.');
   }
   async createMeeting(createMeetingRequest: CreateMeetingRequest): Promise<any> {
-    // employees: Employee[], address?: Address
-    const createdMeeting: Meeting = {
-      id: 'asdf',
-      address: {
-        id: 'hjkl',
-        line1: '1634 18th St',
-        city: 'Denver',
-        state: 'CO',
-        zipCode: 80202,
-      },
-      employeeIds: ['1234', '5678'],
-      scheduledTime: new Date().toISOString(),
-    };
-    await this.mongoClient.updateCollection('meetings', 'test', createdMeeting);
-    return createdMeeting;
+    await this.mongoClient.updateCollection('meetings', 'test', createMeetingRequest);
+    return createMeetingRequest;
   }
-  updateMeeting(id: string): Promise<UpdateEmployeeResponse> {
-    throw new Error('Method not implemented.');
+  async updateMeeting(updateMeetingRequest: Meeting): Promise<UpdateMeetingResponse> {
+    let meetingPreviouslyExisted = false;
+    const meetingArray = await this.mongoClient.getResource('meetings', 'test', { id: updateMeetingRequest.id });
+    if (meetingArray.length) {
+      meetingPreviouslyExisted = true;
+      meetingArray.forEach(async (meeting: Meeting) => {
+        await this.mongoClient.deleteResource('employees', 'test', { id: updateMeetingRequest.id });
+      });
+    }
+    this.mongoClient.updateCollection('employees', 'test', updateMeetingRequest);
+    return { previouslyExisted: meetingPreviouslyExisted, ...updateMeetingRequest };
   }
   deleteMeeting(id: string): Promise<boolean> {
     throw new Error('Method not implemented.');

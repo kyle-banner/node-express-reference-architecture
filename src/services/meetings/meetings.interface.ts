@@ -1,12 +1,12 @@
 import Meeting from '@models/Meeting';
-import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
+import UpdateMeetingResponse from '@models/UpdateMeetingResponse';
 import CreateMeetingRequest from '@models/CreateMeetingRequest';
 
 interface IMeetingsService {
   getMeetings(): Promise<Meeting[]>;
   getMeetingById(id: string): Promise<Meeting | undefined>;
   createMeeting(createMeetingRequest: CreateMeetingRequest): Promise<Meeting>;
-  updateMeeting(id: string): Promise<UpdateEmployeeResponse>;
+  updateMeeting(updateMeetingRequest: Meeting): Promise<UpdateMeetingResponse>;
   deleteMeeting(id: string): Promise<boolean>;
 }
 
