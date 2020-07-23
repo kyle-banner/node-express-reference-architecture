@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/kyle-banner/node-express-reference-architecture#readme",
   "dependencies": {
+    "@types/express": "^4.17.7",
     "@types/mongodb": "^3.5.18",
     "@types/uuid": "^8.0.0",
     "aws-sdk": "^2.702.0",
@@ -40,7 +41,6 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.0",
-    "@types/express": "^4.17.3",
     "@types/node": "^13.9.5",
     "nodemon": "^2.0.2",
     "prettier": "2.0.2",
