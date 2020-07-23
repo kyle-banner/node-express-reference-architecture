@@ -35,6 +35,7 @@
     "inversify": "^5.0.1",
     "mongodb": "^3.5.8",
     "reflect-metadata": "^0.1.13",
+    "typescript": "^3.8.3",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
@@ -44,8 +45,7 @@
     "nodemon": "^2.0.2",
     "prettier": "2.0.2",
     "ts-node": "^8.8.1",
-    "tslint": "^6.1.0",
-    "typescript": "^3.8.3"
+    "tslint": "^6.1.0"
   },
   "nodemonConfig": {
     "ignore": [
