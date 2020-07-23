@@ -1,8 +1,8 @@
 const TYPES: any = {
   EmployeesService: Symbol.for('EmployeesService'),
-  EncountersService: Symbol.for('EncountersService'),
+  MeetingsService: Symbol.for('MeetingsService'),
   EmployeesController: Symbol.for('EmployeesController'),
-  EncountersController: Symbol.for('EncountersController'),
+  MeetingsController: Symbol.for('MeetingsController'),
   MongoClient: Symbol.for('MongoClient'),
 };
 

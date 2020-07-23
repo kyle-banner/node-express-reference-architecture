@@ -13,7 +13,7 @@ class App {
     this.app.use(bodyParser.json());
     const controllers = [
       container.get<Controller>(TYPES.EmployeesController),
-      container.get<Controller>(TYPES.EncountersController),
+      container.get<Controller>(TYPES.MeetingsController),
     ];
     controllers.forEach((controller) => {
       this.app.use(controller.basePath, controller.router);
