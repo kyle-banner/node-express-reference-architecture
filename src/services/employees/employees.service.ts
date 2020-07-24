@@ -6,6 +6,10 @@ import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
 import { v4 as uuidv4 } from 'uuid';
 import IMongoClient from 'src/util/mongoClient.interface';
+import SqlDatabaseClient from 'src/util/sqlDatabaseClient';
+import EmployeesController from './employees.controller';
+import Title from '@models/Title';
+import Practice from '@models/Practice';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
@@ -16,7 +20,23 @@ class EmployeesService implements IEmployeesService {
   }
 
   async getEmployees(): Promise<Employee[]> {
-    return await this.mongoClient.getCollection('employees', 'test');
+    const db = new SqlDatabaseClient();
+    const sequelize = db.getSequelize();
+
+    console.log(JSON.stringify(sequelize));
+
+    const employee = {
+      id: 'id',
+      name: {
+        firstName: 'firstname',
+        lastName: 'lastname'
+      },
+      title: Title.AN,
+      email: 'asdf@asdf.com',
+      practice: Practice.BAS
+    };
+    return [employee];
+    // return await this.mongoClient.getCollection('employees', 'test');
   }
 
   async getEmployeeById(id: string): Promise<Employee | undefined> {

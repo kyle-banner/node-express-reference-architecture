@@ -4,7 +4,7 @@ import IMongoClient from './mongoClient.interface';
 
 @injectable()
 class MongoClient implements IMongoClient {
-  private dbUrl: string = process.env.DB_URL || 'mongodb://localhost:27017';
+  private dbUrl: string = process.env.MONGO_DB_URL || 'mongodb://localhost:27017';
   public client: any;
 
   constructor() {

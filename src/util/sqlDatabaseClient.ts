@@ -5,6 +5,7 @@ import * as path from 'path';
 export default class Database {
   private configureSequelize: Sequelize;
   constructor() {
+    // @ts-ignore
     this.configureSequelize = new Sequelize({
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
