@@ -7,10 +7,10 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "dist": "sh ./scripts/dist.sh",
-    "prestart": "npm run prettify && npm run build",
+    "prestart": "npm run build",
     "prettify": "prettier --write \"./**/*.{ts,json}\"",
     "start": "node -r dotenv/config build/server.js",
-    "start:watch": "nodemon --silent",
+    "start:watch": "npm run prettify && nodemon --silent",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
