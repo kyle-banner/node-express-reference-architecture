@@ -40,31 +40,54 @@ class EmployeesService implements IEmployeesService {
   }
 
   async getEmployeeById(id: string): Promise<Employee | undefined> {
-    const employee = await this.mongoClient.getResource('employees', 'test', { id });
-    return employee;
+    return undefined;
+    // const employee = await this.mongoClient.getResource('employees', 'test', { id });
+    // return employee;
   }
 
   async createEmployee(createEmployeeRequest: CreateEmployeeRequest): Promise<Employee> {
-    const createdEmployee: Employee = { ...createEmployeeRequest, id: uuidv4() };
-    await this.mongoClient.updateCollection('employees', 'test', createdEmployee);
-    return createdEmployee;
+    return {
+      id: "1234",
+      name: {
+        firstName: "Kyle",
+        lastName: "Banner",
+      },
+      title: Title.GM,
+      practice: Practice.TE,
+      email: "kyle.d.banner@gmail.com",
+    };
+    // const createdEmployee: Employee = { ...createEmployeeRequest, id: uuidv4() };
+    // await this.mongoClient.updateCollection('employees', 'test', createdEmployee);
+    // return createdEmployee;
   }
 
   async updateEmployee(updateEmployeeRequest: Employee): Promise<UpdateEmployeeResponse> {
-    let employeePreviouslyExisted = false;
-    const employeeArray = await this.mongoClient.getResource('employees', 'test', { id: updateEmployeeRequest.id });
-    if (employeeArray.length) {
-      employeePreviouslyExisted = true;
-      employeeArray.forEach(async (employee: Employee) => {
-        await this.mongoClient.deleteResource('employees', 'test', { id: employee.id });
-      });
-    }
-    this.mongoClient.updateCollection('employees', 'test', updateEmployeeRequest);
-    return { previouslyExisted: employeePreviouslyExisted, ...updateEmployeeRequest };
+    return {
+      id: "1234",
+      previouslyExisted: false,
+      name: {
+        firstName: "Kyle",
+        lastName: "Banner",
+      },
+      title: Title.GM,
+      practice: Practice.TE,
+      email: "kyle.d.banner@gmail.com",
+    };
+    // let employeePreviouslyExisted = false;
+    // const employeeArray = await this.mongoClient.getResource('employees', 'test', { id: updateEmployeeRequest.id });
+    // if (employeeArray.length) {
+    //   employeePreviouslyExisted = true;
+    //   employeeArray.forEach(async (employee: Employee) => {
+    //     await this.mongoClient.deleteResource('employees', 'test', { id: employee.id });
+    //   });
+    // }
+    // this.mongoClient.updateCollection('employees', 'test', updateEmployeeRequest);
+    // return { previouslyExisted: employeePreviouslyExisted, ...updateEmployeeRequest };
   }
 
   async deleteEmployee(id: string): Promise<boolean> {
-    return await this.mongoClient.deleteResource('employees', 'test', { id });
+    return true;
+    // return await this.mongoClient.deleteResource('employees', 'test', { id });
   }
 }
 
