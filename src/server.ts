@@ -23,9 +23,9 @@ class App {
   }
 
   public listen(): void {
-    this.app.listen(process.env.PORT, () => {
+    this.app.listen(3000, () => {
       // tslint:disable-next-line:no-console
-      console.log(`Server listening http://localhost:${process.env.PORT}/`);
+      console.log(`Server listening http://localhost:3000/`);
     });
   }
 }
