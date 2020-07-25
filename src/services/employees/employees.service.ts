@@ -20,10 +20,10 @@ class EmployeesService implements IEmployeesService {
   }
 
   async getEmployees(): Promise<Employee[]> {
-    const db = new SqlDatabaseClient();
-    const sequelize = db.getSequelize();
+    // const db = new SqlDatabaseClient();
+    // const sequelize = db.getSequelize();
 
-    console.log(JSON.stringify(sequelize));
+    // console.log(JSON.stringify(sequelize));
 
     const employee = {
       id: 'id',

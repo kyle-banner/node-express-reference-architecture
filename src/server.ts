@@ -16,6 +16,8 @@ class App {
       container.get<Controller>(TYPES.MeetingsController),
     ];
     controllers.forEach((controller) => {
+      console.log(controller.basePath);
+      console.log(controller.router);
       this.app.use(controller.basePath, controller.router);
     });
   }

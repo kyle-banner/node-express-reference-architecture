@@ -36,6 +36,7 @@
     "express-validator": "^6.6.0",
     "inversify": "^5.0.1",
     "mongodb": "^3.5.8",
+    "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "5.22.3",
     "sequelize-typescript": "^1.1.0",
