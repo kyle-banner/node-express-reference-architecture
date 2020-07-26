@@ -20,12 +20,15 @@ class App {
       console.log(controller.router);
       this.app.use(controller.basePath, controller.router);
     });
+    this.app.get('/', (req, res, next) => {
+      res.send('Healthy');
+    });
   }
 
   public listen(): void {
-    this.app.listen(3000, () => {
+    this.app.listen(8080, () => {
       // tslint:disable-next-line:no-console
-      console.log(`Server listening http://localhost:3000/`);
+      console.log(`Server listening http://localhost:8080/`);
     });
   }
 }

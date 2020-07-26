@@ -5,7 +5,7 @@ import Employee from '@models/Employee';
 import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
 import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
 import { v4 as uuidv4 } from 'uuid';
-import IMongoClient from 'src/util/mongoClient.interface';
+// import IMongoClient from 'src/util/mongoClient.interface';
 import SqlDatabaseClient from '../../util/sqlDatabaseClient';
 import EmployeesController from './employees.controller';
 import Title from '@models/Title';
@@ -13,10 +13,10 @@ import Practice from '@models/Practice';
 
 @injectable()
 class EmployeesService implements IEmployeesService {
-  private mongoClient: IMongoClient;
+  // private mongoClient: IMongoClient;
 
-  constructor(@inject(TYPES.MongoClient) injectedMongoClient: IMongoClient) {
-    this.mongoClient = injectedMongoClient;
+  constructor(/*@inject(TYPES.MongoClient) injectedMongoClient: IMongoClient*/) {
+    // this.mongoClient = injectedMongoClient;
   }
 
   async getEmployees(): Promise<Employee[]> {

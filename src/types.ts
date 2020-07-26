@@ -3,7 +3,7 @@ const TYPES: any = {
   MeetingsService: Symbol.for('MeetingsService'),
   EmployeesController: Symbol.for('EmployeesController'),
   MeetingsController: Symbol.for('MeetingsController'),
-  MongoClient: Symbol.for('MongoClient'),
+  // MongoClient: Symbol.for('MongoClient'),
 };
 
 export { TYPES };
