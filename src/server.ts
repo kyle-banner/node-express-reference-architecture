@@ -30,13 +30,13 @@ class App {
       });
           // insert new users for test
     await connection.manager.save(connection.manager.create(User, {
-      firstName: "asdf",
-      lastName: "asdf",
+      firstName: "thisis",
+      lastName: "atest",
       age: 27
   }));
   await connection.manager.save(connection.manager.create(User, {
-      firstName: "Phantom",
-      lastName: "Assassin",
+      firstName: "thisis",
+      lastName: "alsoatest",
       age: 24
   }));
     }).catch(error => console.log(error));
