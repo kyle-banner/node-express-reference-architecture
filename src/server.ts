@@ -45,6 +45,7 @@ class App {
           })
         );
       })
+      // tslint:disable-next-line:no-console
       .catch((error) => console.log(error));
   }
 }
