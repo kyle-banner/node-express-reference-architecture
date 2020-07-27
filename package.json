@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
+    "deploy": "npm run build && npm run dist && eb deploy",
     "dist": "sh ./scripts/dist.sh",
     "prettify": "prettier --write \"./**/*.{ts,json}\"",
     "start": "npm run prettify && ts-node -r dotenv/config src/server.ts",
