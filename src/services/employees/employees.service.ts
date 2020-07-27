@@ -29,11 +29,11 @@ class EmployeesService implements IEmployeesService {
       id: 'id',
       name: {
         firstName: 'firstname',
-        lastName: 'lastname'
+        lastName: 'lastname',
       },
       title: Title.AN,
       email: 'asdf@asdf.com',
-      practice: Practice.BAS
+      practice: Practice.BAS,
     };
     return [employee];
     // return await this.mongoClient.getCollection('employees', 'test');
@@ -47,14 +47,14 @@ class EmployeesService implements IEmployeesService {
 
   async createEmployee(createEmployeeRequest: CreateEmployeeRequest): Promise<Employee> {
     return {
-      id: "1234",
+      id: '1234',
       name: {
-        firstName: "Kyle",
-        lastName: "Banner",
+        firstName: 'Kyle',
+        lastName: 'Banner',
       },
       title: Title.GM,
       practice: Practice.TE,
-      email: "kyle.d.banner@gmail.com",
+      email: 'kyle.d.banner@gmail.com',
     };
     // const createdEmployee: Employee = { ...createEmployeeRequest, id: uuidv4() };
     // await this.mongoClient.updateCollection('employees', 'test', createdEmployee);
@@ -63,15 +63,15 @@ class EmployeesService implements IEmployeesService {
 
   async updateEmployee(updateEmployeeRequest: Employee): Promise<UpdateEmployeeResponse> {
     return {
-      id: "1234",
+      id: '1234',
       previouslyExisted: false,
       name: {
-        firstName: "Kyle",
-        lastName: "Banner",
+        firstName: 'Kyle',
+        lastName: 'Banner',
       },
       title: Title.GM,
       practice: Practice.TE,
-      email: "kyle.d.banner@gmail.com",
+      email: 'kyle.d.banner@gmail.com',
     };
     // let employeePreviouslyExisted = false;
     // const employeeArray = await this.mongoClient.getResource('employees', 'test', { id: updateEmployeeRequest.id });
