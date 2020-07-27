@@ -8,7 +8,7 @@
     "build": "tsc",
     "dist": "sh ./scripts/dist.sh",
     "prettify": "prettier --write \"./**/*.{ts,json}\"",
-    "start": "node -r dotenv/config build/server.js",
+    "start": "node build/server.js",
     "start:watch": "npm run prettify && nodemon --silent",
     "startts": "ts-node -r dotenv/config src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

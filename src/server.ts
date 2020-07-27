@@ -35,7 +35,7 @@ class App {
       age: 27
   }));
   await connection.manager.save(connection.manager.create(User, {
-      firstName: "thisis",
+      firstName: "asdfasdf",
       lastName: "alsoatest",
       age: 24
   }));
