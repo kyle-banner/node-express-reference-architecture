@@ -10,6 +10,7 @@
     "prettify": "prettier --write \"./**/*.{ts,json}\"",
     "start": "node -r dotenv/config build/server.js",
     "start:watch": "npm run prettify && nodemon --silent",
+    "startts": "ts-node -r dotenv/config src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "express-validator": "^6.6.0",
     "inversify": "^5.0.1",
     "mongodb": "^3.5.8",
+    "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.25",
     "typescript": "^3.8.3",
@@ -45,7 +47,7 @@
     "@types/node": "^13.9.5",
     "nodemon": "^2.0.2",
     "prettier": "2.0.2",
-    "ts-node": "^8.8.1",
+    "ts-node": "^8.10.2",
     "tslint": "^6.1.0"
   },
   "nodemonConfig": {
