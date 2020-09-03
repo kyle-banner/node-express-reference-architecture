@@ -1,4 +1,6 @@
 # NodeJS+Express Reference Architecture
+This needs severe updating.
+
 NodeJS+Express Reference Architecture
 
 You'll need your own .env file populated with variables. See .env.example for an example.
@@ -14,3 +16,5 @@ npm run build
 npm run dist
 npm start (locally)
 eb deploy
+
+This repository uses TypeORM. The ormconfig file contains secrets, it has been marked ignored in .gitignore. You'll need to get this ormconfig.json file from a team member. Any time an entity is updated a new migration must be created/updated. More on migrations here: https://typeorm.io/#/migrations.
