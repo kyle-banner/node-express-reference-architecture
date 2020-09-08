@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/employees/84e8a4bc-1fdf-4811-a1b5-30a9ee360e92",
+					"raw": "http://localhost:8080/employees/1234",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,7 +20,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						"84e8a4bc-1fdf-4811-a1b5-30a9ee360e92"
+						"1234"
 					]
 				}
 			},
@@ -89,7 +89,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/employees/053af0ab-f4b2-4d6b-a9c9-4dae374a04d6",
+					"raw": "http://localhost:8080/employees/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -97,7 +97,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						"053af0ab-f4b2-4d6b-a9c9-4dae374a04d6"
+						"1"
 					]
 				}
 			},
@@ -118,7 +118,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/employees/053af0ab-f4b2-4d6b-a9c9-4dae374a04d6",
+					"raw": "http://localhost:8080/employees/1234",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,7 +126,7 @@
 					"port": "8080",
 					"path": [
 						"employees",
-						"053af0ab-f4b2-4d6b-a9c9-4dae374a04d6"
+						"1234"
 					]
 				}
 			},
