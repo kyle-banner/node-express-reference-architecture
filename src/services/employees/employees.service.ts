@@ -10,7 +10,8 @@ import { getRepository } from 'typeorm';
 class EmployeesService implements IEmployeesService {
   private employeeRepository = getRepository(EmployeeEntity);
 
-  async getEmployees(): Promise<EmployeeEntity[]> { // this should be Employee type
+  async getEmployees(): Promise<EmployeeEntity[]> {
+    // this should be Employee type
     return await this.employeeRepository.find();
   }
 
