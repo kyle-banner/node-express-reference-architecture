@@ -186,7 +186,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"address\": {\n    \"line1\": \"asdfasdfasdfasdf1634 18th St\",\n    \"city\": \"Denver\",\n    \"state\": \"CO\",\n    \"zipCode\": 80202\n  },\n  \"employeeIds\": [\"1234\", \"5678\"],\n  \"scheduledTime\": \"2020-07-14T03:46:56.237Z\"\n}",
+					"raw": "{\n  \"address\": {\n    \"line1\": \"asdfasdfasdfasdf1634 18th St\",\n    \"city\": \"Denver\",\n    \"state\": \"CO\",\n    \"zipCode\": 80202\n  },\n  \"employeeIds\": [\"1234\", \"5678\"],\n  \"scheduledTime\": \"2020-07-14T03:46:56.238Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,7 +194,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/meetings/d82144a2-cd02-431c-828a-c647ec7fec3c",
+					"raw": "http://localhost:8080/meetings/12",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -202,7 +202,7 @@
 					"port": "8080",
 					"path": [
 						"meetings",
-						"d82144a2-cd02-431c-828a-c647ec7fec3c"
+						"12"
 					]
 				}
 			},
@@ -223,6 +223,35 @@
 					"path": [
 						"meetings",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Meeting by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": {\n\t\t\"firstName\": \"a\",\n\t\t\"lastName\": \"b\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meetings/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meetings",
+						"2"
 					]
 				}
 			},
