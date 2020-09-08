@@ -5,7 +5,7 @@ import Controller from './controller';
 import container from './inversify.config';
 import { TYPES } from './types';
 import { createConnection } from 'typeorm';
-import { User } from './entity/User';
+import { Meeting as MeetingEntity } from './entity/Meeting';
 
 class App {
   public app!: express.Application;
@@ -30,20 +30,12 @@ class App {
           console.log(`Server listening http://localhost:8080/`);
         });
         // insert new users for test
-        await connection.manager.save(
-          connection.manager.create(User, {
-            firstName: 'thisis',
-            lastName: 'atest',
-            age: 27,
-          })
-        );
-        await connection.manager.save(
-          connection.manager.create(User, {
-            firstName: 'asdfasdf',
-            lastName: 'alsoatest',
-            age: 24,
-          })
-        );
+        const meeting = {
+          scheduledTime: '2020-09-08T04:46:46+0000',
+        };
+        const meetingRepository = connection.getRepository(MeetingEntity);
+        await meetingRepository.save(meeting);
+        console.log('saved meeting');
       })
       // tslint:disable-next-line:no-console
       .catch((error) => console.log(error));

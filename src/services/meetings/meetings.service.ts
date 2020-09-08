@@ -4,13 +4,15 @@ import CreateMeetingRequest from '@models/CreateMeetingRequest';
 import UpdateMeetingResponse from '@models/UpdateMeetingResponse';
 // import IMongoClient from 'src/util/mongoClient.interface';
 import IMeetingsService from './meetings.interface';
+import { getRepository } from 'typeorm';
 import Meeting from '@models/Meeting';
+import { Meeting as MeetingEntity } from '../../entity/Meeting';
 import { v4 as uuidv4 } from 'uuid';
 
 @injectable()
 class MeetingsService implements IMeetingsService {
   // private mongoClient: IMongoClient;
-
+  private meetingRepository = getRepository(MeetingEntity);
   constructor(/*@inject(TYPES.MongoClient) injectedMongoClient: IMongoClient*/) {
     // this.mongoClient = injectedMongoClient;
   }
@@ -20,8 +22,11 @@ class MeetingsService implements IMeetingsService {
     // return await this.mongoClient.getCollection('meetings', 'test');
   }
 
-  getMeetingById(id: string): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getMeetingById(id: string): Promise<any> {
+    // throw new Error('Method not implemented.');
+    const meeting = await this.meetingRepository.findOne(id);
+    console.log(meeting);
+    return meeting;
   }
 
   async createMeeting(createMeetingRequest: CreateMeetingRequest): Promise<any> {
@@ -32,6 +37,13 @@ class MeetingsService implements IMeetingsService {
   }
 
   async updateMeeting(updateMeetingRequest: Meeting): Promise<UpdateMeetingResponse> {
+    // const updateMeetingResponse = {
+    //   previouslyExisted: false,
+    //   id: '1234',
+    //   employeeIds: ['1234', '123'],
+    //   scheduledTime: 'adf',
+    // };
+    // return updateMeetingResponse;
     throw new Error('Method not implemented.');
     // let meetingPreviouslyExisted = false;
     // const meetingArray = await this.mongoClient.getResource('meetings', 'test', { id: updateMeetingRequest.id });

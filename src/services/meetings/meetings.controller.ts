@@ -29,6 +29,7 @@ class MeetingsController extends Controller {
         return res.status(400).json({ errors });
       }
 
+      console.log(req.params.id);
       const meeting = await this.meetingsService.getMeetingById(req.params.id);
       res.send(meeting);
     });

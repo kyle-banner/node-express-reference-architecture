@@ -2,6 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, ManyToOne 
 
 @Entity()
 export class Employee {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 }

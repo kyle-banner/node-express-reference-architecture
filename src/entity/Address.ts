@@ -2,21 +2,21 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, ManyToOne 
 
 @Entity()
 export class Address {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column()
-    line1!: string;
+  @Column()
+  line1!: string;
 
-    @Column()
-    line2?: string;
+  @Column()
+  line2?: string;
 
-    @Column()
-    city!: string;
+  @Column()
+  city!: string;
 
-    @Column()
-    state!: string;
+  @Column()
+  state!: string;
 
-    @Column()
-    zipCode!: number;
+  @Column()
+  zipCode!: number;
 }

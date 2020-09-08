@@ -114,3 +114,4 @@ dist
 !.elasticbeanstalk/*.global.yml
 
 ormconfig.json
+.DS_Store
