@@ -1,11 +1,11 @@
-import EntityToDomainMapper from './entityToDomainGenericMapper';
-import { Employee as EmployeeEntity } from '../../entity/Employee';
+import EntityToDomainMapper from './mapper';
+import { Employee as EmployeeEntity } from '../../../entity/Employee';
 import EmployeeModel from '@models/Employee';
 
 const mapper = new EntityToDomainMapper<EmployeeEntity, EmployeeModel>();
 mapper.map = (entity) => {
     const employeeDto: EmployeeModel = {
-        id: entity.id.toString(),
+        id: entity.id,
         name: {
             firstName: entity.firstName,
             lastName: entity.lastName

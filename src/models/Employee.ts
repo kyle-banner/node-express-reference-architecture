@@ -3,7 +3,7 @@ import Practice from './Practice';
 import Title from './Title';
 
 interface Employee {
-  id: string;
+  id: number;
   name: Name;
   title: Title;
   email: string;

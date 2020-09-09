@@ -4,7 +4,7 @@ import { Meeting as MeetingEntity } from '../entity/Meeting';
 import { Employee as EmployeeEntity } from '../entity/Employee';
 import Title from '@models/Title';
 import Practice from '@models/Practice';
-import { employeeMapper } from '../util/mapper';
+import { employee as employeeEntityToDomainMapper } from '../util/mapper/entityToDomain';
 
 createConnection()
   .then(async (connection) => {
@@ -29,6 +29,6 @@ createConnection()
     console.log('saved employee');
 
     console.log(employee);
-    console.log(employeeMapper.map(employee));
+    console.log(employeeEntityToDomainMapper.map(employee));
   })
   .catch((error) => console.log(error));

@@ -4,7 +4,7 @@ import Title from './Title';
 
 interface UpdateEmployeeResponse {
   previouslyExisted: boolean;
-  id: string;
+  id: number;
   name: Name;
   title: Title;
   email: string;
