@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
-import Employee from '@models/Employee';
-import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
-import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
+import Employee from 'src/dto/Employee';
+import CreateEmployeeRequest from 'src/dto/CreateEmployeeRequest';
+import UpdateEmployeeResponse from 'src/dto/UpdateEmployeeResponse';
 import { Employee as EmployeeEntity } from '../../entity/Employee';
 import { getRepository } from 'typeorm';
 

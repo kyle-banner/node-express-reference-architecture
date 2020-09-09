@@ -1,6 +1,6 @@
-import Employee from '@models/Employee';
-import Practice from '@models/Practice';
-import Title from '@models/Title';
+import Employee from 'src/dto/Employee';
+import Practice from 'src/dto/Practice';
+import Title from 'src/dto/Title';
 
 const kyleBanner: Employee = {
   id: 'aaaaaaaa-3b7d-4bad-9bdd-2b0d7b3dcb6d',

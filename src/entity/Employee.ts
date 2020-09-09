@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, ManyToOne } from 'typeorm';
-import Title from '@models/Title';
-import Practice from '@models/Practice';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import Title from 'src/dto/Title';
+import Practice from 'src/dto/Practice';
 
 @Entity()
 export class Employee {

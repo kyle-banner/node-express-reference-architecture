@@ -1,6 +1,6 @@
-import Meeting from '@models/Meeting';
-import UpdateMeetingResponse from '@models/UpdateMeetingResponse';
-import CreateMeetingRequest from '@models/CreateMeetingRequest';
+import Meeting from 'src/dto/Meeting';
+import UpdateMeetingResponse from 'src/dto/UpdateMeetingResponse';
+import CreateMeetingRequest from 'src/dto/CreateMeetingRequest';
 
 interface IMeetingsService {
   getMeetings(): Promise<Meeting[]>;

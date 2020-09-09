@@ -1,9 +1,9 @@
 import { injectable } from 'inversify';
-import CreateMeetingRequest from '@models/CreateMeetingRequest';
-import UpdateMeetingResponse from '@models/UpdateMeetingResponse';
+import CreateMeetingRequest from 'src/dto/CreateMeetingRequest';
+import UpdateMeetingResponse from 'src/dto/UpdateMeetingResponse';
 import IMeetingsService from './meetings.interface';
 import { getRepository } from 'typeorm';
-import Meeting from '@models/Meeting';
+import Meeting from 'src/dto/Meeting';
 import { Meeting as MeetingEntity } from '../../entity/Meeting';
 
 @injectable()

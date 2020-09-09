@@ -1,7 +1,7 @@
 import { Employee as EmployeeEntity } from '../../entity/Employee';
-import Employee from '@models/Employee';
-import CreateEmployeeRequest from '@models/CreateEmployeeRequest';
-import UpdateEmployeeResponse from '@models/UpdateEmployeeResponse';
+import Employee from 'src/dto/Employee';
+import CreateEmployeeRequest from 'src/dto/CreateEmployeeRequest';
+import UpdateEmployeeResponse from 'src/dto/UpdateEmployeeResponse';
 
 interface IEmployeesService {
   getEmployees(): Promise<EmployeeEntity[]>;

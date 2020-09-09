@@ -61,7 +61,7 @@
     "emitDecoratorMetadata": true,            /* Enables experimental support for emitting type metadata for decorators. */
     "baseUrl": "./",                          /* Base directory to resolve non-absolute module names. */
     "paths": {
-      "@models/*": ["src/models/*"],
+      "@models/*": ["src/dto/*"],
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */

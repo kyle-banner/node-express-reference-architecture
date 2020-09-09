@@ -2,8 +2,8 @@
 import { createConnection } from 'typeorm';
 import { Meeting as MeetingEntity } from '../entity/Meeting';
 import { Employee as EmployeeEntity } from '../entity/Employee';
-import Title from '@models/Title';
-import Practice from '@models/Practice';
+import Title from 'src/dto/Title';
+import Practice from 'src/dto/Practice';
 import { employee as employeeEntityToDomainMapper } from '../util/mapper/entityToDomain';
 
 createConnection()
@@ -17,10 +17,10 @@ createConnection()
 
     const employee: EmployeeEntity = {
       id: 1234,
-      firstName: "Kyle",
-      lastName: "Banner",
+      firstName: 'Kyle',
+      lastName: 'Banner',
       title: Title.SA,
-      email: "kyle.banner@slalom.com",
+      email: 'kyle.banner@slalom.com',
       practice: Practice.TE,
     };
     const employeeRepository = connection.getRepository(EmployeeEntity);
