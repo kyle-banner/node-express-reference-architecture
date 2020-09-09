@@ -1,6 +1,9 @@
+/* tslint:disable:no-console */
 import { createConnection } from 'typeorm';
-import { Meeting as MeetingEntity } from '../src/entity/Meeting';
-import { Employee as EmployeeEntity } from '../src/entity/Employee';
+import { Meeting as MeetingEntity } from '../entity/Meeting';
+import { Employee as EmployeeEntity } from '../entity/Employee';
+import Title from '@models/Title';
+import Practice from '@models/Practice';
 
 createConnection()
   .then(async (connection) => {
@@ -10,12 +13,18 @@ createConnection()
     const meetingRepository = connection.getRepository(MeetingEntity);
     await meetingRepository.save(meeting);
     console.log('saved meeting');
-    const employee = {
+
+    const employee: EmployeeEntity = {
       id: 1234,
+      firstName: "Kyle",
+      lastName: "Banner",
+      title: Title.SA,
+      email: "kyle.banner@slalom.com",
+      practice: Practice.TE,
     };
     const employeeRepository = connection.getRepository(EmployeeEntity);
     await employeeRepository.save(employee);
+
     console.log('saved employee');
   })
-  // tslint:disable-next-line:no-console
   .catch((error) => console.log(error));

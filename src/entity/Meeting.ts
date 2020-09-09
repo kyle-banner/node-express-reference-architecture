@@ -11,7 +11,7 @@ export class Meeting {
   scheduledTime!: string;
 
   @OneToOne((type) => Address)
-  address?: Address;
+  address!: Address;
 
   @OneToOne((type) => Employee)
   hostEmployeeId!: number;
