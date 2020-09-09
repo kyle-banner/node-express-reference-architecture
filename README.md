@@ -18,3 +18,5 @@ npm start (locally)
 eb deploy
 
 This repository uses TypeORM. The ormconfig file contains secrets, it has been marked ignored in .gitignore. You'll need to get this ormconfig.json file from a team member. Any time an entity is updated a new migration must be created/updated. More on migrations here: https://typeorm.io/#/migrations.
+
+Instead of using typeorm cli directly (e.g. typeorm migration:run) use ts-node ./node_modules/typeorm/cli.js migration:run instead. e.g. to generate a migration use ts-node ./node_modules/typeorm/cli.js migration:generate -n InitialMigration.
