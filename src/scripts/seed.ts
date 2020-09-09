@@ -4,6 +4,7 @@ import { Meeting as MeetingEntity } from '../entity/Meeting';
 import { Employee as EmployeeEntity } from '../entity/Employee';
 import Title from '@models/Title';
 import Practice from '@models/Practice';
+import { employeeMapper } from '../util/mapper';
 
 createConnection()
   .then(async (connection) => {
@@ -26,5 +27,8 @@ createConnection()
     await employeeRepository.save(employee);
 
     console.log('saved employee');
+
+    console.log(employee);
+    console.log(employeeMapper.map(employee));
   })
   .catch((error) => console.log(error));
