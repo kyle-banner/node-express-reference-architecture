@@ -1,9 +1,9 @@
-import EntityToDomainMapper from './mapper';
+import DomainToEntityMapper from './mapper';
 import { Employee as EmployeeEntity } from '../../../entity/Employee';
-import EmployeeModel from 'src/dto/Employee';
+import EmployeeDto from 'src/dto/Employee';
 
-const mapper = new EntityToDomainMapper<EmployeeModel, EmployeeEntity>();
-mapper.map = (dto: EmployeeModel) => {
+const mapper = new DomainToEntityMapper<EmployeeDto, EmployeeEntity>();
+mapper.map = (dto: EmployeeDto) => {
   const employeeEntity: EmployeeEntity = {
     id: dto.id,
     firstName: dto.name.firstName,

@@ -1,3 +1,4 @@
 import employee from './employee';
+import meeting from './meeting';
 
-export { employee };
+export { employee, meeting };

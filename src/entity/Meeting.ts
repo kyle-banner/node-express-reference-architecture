@@ -10,12 +10,12 @@ export class Meeting {
   @Column()
   scheduledTime!: string;
 
-  @OneToOne((type) => Address)
+  @OneToOne((type) => Address, { cascade: true })
   address!: Address;
 
-  @OneToOne((type) => Employee)
+  @OneToOne((type) => Employee, { cascade: true })
   hostEmployeeId!: number;
 
-  @OneToOne((type) => Employee)
+  @OneToOne((type) => Employee, { cascade: true })
   joiningEmployeeId!: number;
 }

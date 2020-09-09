@@ -2,7 +2,7 @@ import Address from './Address';
 
 interface UpdateEmployeeResponse {
   previouslyExisted: boolean;
-  id: string;
+  id: number;
   address?: Address;
   scheduledTime: string;
 }
