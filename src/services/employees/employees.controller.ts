@@ -67,7 +67,7 @@ class EmployeesController extends Controller {
         const employee = { ...req.body, id: req.params.id };
         const createdEmployee = await this.employeesService.updateEmployee(employee);
         if(createdEmployee.id !== employee.id) {
-          res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id changed
+          res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id was not found and new resource created
           return;
         }
         return res.status(200).send(`${this.basePath}/${createdEmployee.id}`); // updated resource

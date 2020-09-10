@@ -4,7 +4,7 @@ import Practice from 'src/dto/Practice';
 
 @Entity()
 export class Employee {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id!: number;
 
   @Column()
