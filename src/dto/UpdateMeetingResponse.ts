@@ -1,10 +1,10 @@
 import Address from './Address';
 
-interface UpdateEmployeeResponse {
+interface UpdateMeetingResponse {
   previouslyExisted: boolean;
   id: number;
   address?: Address;
   scheduledTime: string;
 }
 
-export default UpdateEmployeeResponse;
+export default UpdateMeetingResponse;
