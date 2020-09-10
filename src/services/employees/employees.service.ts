@@ -1,8 +1,9 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
-import Employee from 'src/dto/Employee';
+import EmployeeDto from 'src/dto/Employee';
 import CreateEmployeeRequest from 'src/dto/CreateEmployeeRequest';
-import UpdateEmployeeResponse from 'src/dto/UpdateEmployeeResponse';
+import { employee as employeeEntityToDomainMapper } from '../../util/mapper/entityToDomain';
+import { employee as employeeDomainToEntityMapper } from '../../util/mapper/domainToEntity';
 import { Employee as EmployeeEntity } from '../../entity/Employee';
 import { getRepository } from 'typeorm';
 
@@ -10,37 +11,40 @@ import { getRepository } from 'typeorm';
 class EmployeesService implements IEmployeesService {
   private employeeRepository = getRepository(EmployeeEntity);
 
-  async getEmployees(): Promise<EmployeeEntity[]> {
-    // this should be Employee type
-    return await this.employeeRepository.find();
+  async getEmployees(): Promise<EmployeeDto[]> {
+    const employeeEntities = await this.employeeRepository.find();
+    const employeeDtos: EmployeeDto[] = [];
+    employeeEntities.forEach(entity => {
+      employeeDtos.push(employeeEntityToDomainMapper.map(entity));
+    });
+    return employeeDtos;
   }
 
-  async getEmployeeById(id: string): Promise<EmployeeEntity | undefined> {
-    return await this.employeeRepository.findOne(id);
+  async getEmployeeById(id: string): Promise<EmployeeDto | undefined> {
+    const employeeEntity = await this.employeeRepository.findOne(id);
+    if (employeeEntity) return employeeEntityToDomainMapper.map(employeeEntity);
+    return undefined;
   }
 
-  async createEmployee(createEmployeeRequest: CreateEmployeeRequest): Promise<EmployeeEntity> {
-    return await this.employeeRepository.save({});
+  async createEmployee(createEmployeeRequest: CreateEmployeeRequest): Promise<EmployeeDto> {
+    const employeeEntity = employeeDomainToEntityMapper.map({id: 1234, ...createEmployeeRequest}); // the id should not be required here
+    const entityResponse = await this.employeeRepository.save(employeeEntity);
+    return employeeEntityToDomainMapper.map(entityResponse);
   }
 
-  async updateEmployee(updateEmployeeRequest: Employee): Promise<UpdateEmployeeResponse> {
-    let previouslyExisted = false;
-    const employee = await this.employeeRepository.findOne(updateEmployeeRequest.id);
-    if (employee) {
-      previouslyExisted = true;
-      await this.employeeRepository.remove(employee);
+  async updateEmployee(updateEmployeeRequest: EmployeeDto): Promise<EmployeeDto> {
+    const employeeEntityToSave = employeeDomainToEntityMapper.map({...updateEmployeeRequest});
+    const updatedEmployeeEntity = await this.employeeRepository.save(employeeEntityToSave);
+    return employeeEntityToDomainMapper.map(updatedEmployeeEntity);
+  }
+
+  async deleteEmployee(id: string): Promise<EmployeeDto | undefined> {
+    const employeeEntity = await this.employeeRepository.findOne(id);
+    if (employeeEntity) {
+      await this.employeeRepository.remove(employeeEntity);
+      return employeeEntityToDomainMapper.map(employeeEntity);
     }
-    await this.employeeRepository.save({});
-    return { previouslyExisted, ...updateEmployeeRequest };
-  }
-
-  async deleteEmployee(id: string): Promise<boolean> {
-    const employee = await this.employeeRepository.findOne(id);
-    if (employee) {
-      await this.employeeRepository.remove(employee);
-      return true;
-    }
-    return false;
+    return undefined;
   }
 }
 

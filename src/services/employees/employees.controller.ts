@@ -5,6 +5,7 @@ import { TYPES } from '../../types';
 import requestValidationFailures from '../../util/validateEndpoint';
 import { inject, injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
+import responseMessages from '../../util/responseMessages';
 
 @injectable()
 class EmployeesController extends Controller {
@@ -23,19 +24,23 @@ class EmployeesController extends Controller {
       res.send(employees);
     });
 
-    this.router.get('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
+    this.router.get('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
         return res.status(400).json({ errors });
       }
 
-      const employees = await this.employeesService.getEmployeeById(req.params.id);
-      res.send(employees);
+      const employee = await this.employeesService.getEmployeeById(req.params.id);
+      if (employee) {
+        res.send(employee);
+        return;
+      }
+      res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
     });
 
     this.router.post(
       '/',
-      [body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty()],
+      [body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty(), body('practice').not().isEmpty(), body('title').not().isEmpty()],
       async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
         if (errors.length) {
@@ -50,9 +55,7 @@ class EmployeesController extends Controller {
     this.router.put(
       '/:id',
       [
-        body('email').isEmail(),
-        body('name.firstName').not().isEmpty(),
-        body('name.lastName').not().isEmpty(),
+        body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty(), body('practice').not().isEmpty(), body('title').not().isEmpty(),
         param('id').not().isEmpty(),
       ],
       async (req: express.Request, res: express.Response) => {
@@ -63,10 +66,11 @@ class EmployeesController extends Controller {
 
         const employee = { ...req.body, id: req.params.id };
         const createdEmployee = await this.employeesService.updateEmployee(employee);
-        if (createdEmployee.previouslyExisted) {
-          return res.status(200).send(`${this.basePath}/${createdEmployee.id}`);
+        if(createdEmployee.id !== employee.id) {
+          res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id changed
+          return;
         }
-        res.status(201).send(`${this.basePath}/${createdEmployee.id}`);
+        return res.status(200).send(`${this.basePath}/${createdEmployee.id}`); // updated resource
       }
     );
 
@@ -77,9 +81,9 @@ class EmployeesController extends Controller {
       }
       const deleteResult = await this.employeesService.deleteEmployee(req.params.id);
       if (deleteResult) {
-        return res.status(200).send();
+        return res.status(204).send();
       }
-      res.status(404).send(`Could not find employee with id ${req.params.id}`);
+      res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
     });
   }
 }

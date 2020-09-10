@@ -1,14 +1,7 @@
-import Name from './Name';
-import Practice from './Practice';
-import Title from './Title';
+import Employee from './Employee';
 
-interface UpdateEmployeeResponse {
+interface UpdateEmployeeResponse extends Employee {
   previouslyExisted: boolean;
-  id: number;
-  name: Name;
-  title: Title;
-  email: string;
-  practice: Practice;
 }
 
 export default UpdateEmployeeResponse;
