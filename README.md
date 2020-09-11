@@ -15,13 +15,12 @@ Instead of using typeorm cli directly (e.g. typeorm migration:run) use `ts-node 
 
 ## Deployment
 Steps (not currently necessary)
-eb init
-eb create
-
-npm run build
-npm run dist
-npm start (locally)
-eb deploy
+- eb init
+- eb create
+- npm run build
+- npm run dist
+- npm start (locally)
+- eb deploy
 
 ## TODOs
 Two items to fix:
