@@ -4,7 +4,6 @@ import MeetingDto from 'src/dto/Meeting';
 
 const mapper = new EntityToDomainMapper<MeetingEntity, MeetingDto>();
 mapper.map = (entity: MeetingEntity) => {
-  console.log(entity);
   const meetingDto: MeetingDto = {
     id: entity.id,
     employees: [entity.hostEmployeeId, entity.joiningEmployeeId],

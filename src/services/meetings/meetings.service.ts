@@ -3,12 +3,14 @@ import IMeetingsService from './meetings.interface';
 import { getRepository } from 'typeorm';
 import MeetingDto from 'src/dto/Meeting';
 import { Meeting as MeetingEntity } from '../../entity/Meeting';
+import { Address as AddressEntity } from '../../entity/Address';
 import { meeting as meetingEntityToDomainMapper } from '../../util/mapper/entityToDomain';
 import { meeting as meetingDomainToEntityMapper } from '../../util/mapper/domainToEntity';
 
 @injectable()
 class MeetingsService implements IMeetingsService {
   private meetingRepository = getRepository(MeetingEntity);
+  private addressRepository = getRepository(AddressEntity);
 
   async getMeetings(): Promise<MeetingDto[]> {
     const meetingEntities = await this.meetingRepository.find({join: {
@@ -43,22 +45,22 @@ class MeetingsService implements IMeetingsService {
   }
 
   async createMeeting(createMeetingRequest: MeetingDto): Promise<MeetingDto> {
-    const employeeEntity = meetingDomainToEntityMapper.map(createMeetingRequest); // the id should not be required here (in controller)
-    const entityResponse = await this.meetingRepository.save(employeeEntity);
+    const meetingEntity = meetingDomainToEntityMapper.map(createMeetingRequest);
+    const entityResponse = await this.meetingRepository.save(meetingEntity);
     return meetingEntityToDomainMapper.map(entityResponse);
   }
 
   async updateMeeting(updateMeetingRequest: MeetingDto): Promise<MeetingDto> {
     const meetingEntityToSave = meetingDomainToEntityMapper.map(updateMeetingRequest);
-    const employeeEntity = await this.meetingRepository.findOne(meetingEntityToSave.id);
-    let updatedEmployeeEntity: MeetingEntity;
-    if (employeeEntity && employeeEntity.id) {
-      await this.meetingRepository.update(employeeEntity.id, meetingEntityToSave);
-      updatedEmployeeEntity = meetingEntityToSave;
+    const meetingEntity = await this.meetingRepository.findOne(meetingEntityToSave.id);
+    let updatedMeetingEntity: MeetingEntity;
+    if (meetingEntity && meetingEntity.id) {
+      await this.meetingRepository.update(meetingEntity.id, meetingEntityToSave);
+      updatedMeetingEntity = meetingEntityToSave;
     } else {
-      updatedEmployeeEntity = await this.meetingRepository.save(meetingEntityToSave);
+      updatedMeetingEntity = await this.meetingRepository.save(meetingEntityToSave);
     }
-    return meetingEntityToDomainMapper.map(updatedEmployeeEntity);
+    return meetingEntityToDomainMapper.map(updatedMeetingEntity);
   }
 
   async deleteMeeting(id: string): Promise<MeetingDto | undefined> {

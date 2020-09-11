@@ -40,7 +40,8 @@ class MeetingsController extends Controller {
     this.router.post(
       '/',
       [
-        body('employeeIds').isArray(),
+        body('employees').isArray(),
+        body('employees.*').isUUID(),
         body('scheduledTime').isISO8601(),
         body('address.line1').isString(),
         body('address.city').isString(),
@@ -53,7 +54,7 @@ class MeetingsController extends Controller {
           return res.status(400).json({ errors });
         }
 
-        const createdMeeting = await this.meetingsService.createMeeting({ id: '1234', ...req.body });
+        const createdMeeting = await this.meetingsService.createMeeting(req.body);
         res.status(201).send(`${this.basePath}/${createdMeeting.id}`);
       }
     );
@@ -61,7 +62,8 @@ class MeetingsController extends Controller {
     this.router.put(
       '/:id',
       [
-        body('employeeIds').isArray(),
+        body('employees').isArray(),
+        body('employees.*').isUUID(),
         body('scheduledTime').isISO8601(),
         body('address.line1').isString(),
         body('address.city').isString(),
