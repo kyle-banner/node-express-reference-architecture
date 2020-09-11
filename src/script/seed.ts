@@ -4,7 +4,6 @@ import { Meeting as MeetingEntity } from '../entity/Meeting';
 import { Employee as EmployeeEntity } from '../entity/Employee';
 import Title from 'src/dto/Title';
 import Practice from 'src/dto/Practice';
-import { employee as employeeEntityToDomainMapper, meeting as meetingEntityToDomainMapper } from '../util/mapper/entityToDomain';
 
 createConnection()
   .then(async (connection) => {
@@ -44,7 +43,5 @@ createConnection()
       };
       await meetingRepository.save(meeting);
     }
-    // console.log(meeting);
-    // console.log(meetingEntityToDomainMapper.map(meeting));
   })
   .catch((error) => console.log(error));

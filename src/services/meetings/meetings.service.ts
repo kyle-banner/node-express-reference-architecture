@@ -1,6 +1,4 @@
 import { injectable } from 'inversify';
-import CreateMeetingRequest from 'src/dto/CreateMeetingRequest';
-import UpdateMeetingResponse from 'src/dto/UpdateMeetingResponse';
 import IMeetingsService from './meetings.interface';
 import { getRepository } from 'typeorm';
 import MeetingDto from 'src/dto/Meeting';
