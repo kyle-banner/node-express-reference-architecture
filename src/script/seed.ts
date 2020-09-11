@@ -33,13 +33,13 @@ createConnection()
       meeting = {
         scheduledTime: '2020-09-08T04:46:46+0000',
         address: {
-          line1: "1634 18th St.",
-          city: "Denver",
-          state: "Colorado",
-          zipCode: 80202
+          line1: '1634 18th St.',
+          city: 'Denver',
+          state: 'Colorado',
+          zipCode: 80202,
         },
         hostEmployeeId: savedEmployee1.id,
-        joiningEmployeeId: savedEmployee2.id
+        joiningEmployeeId: savedEmployee2.id,
       };
       await meetingRepository.save(meeting);
     }

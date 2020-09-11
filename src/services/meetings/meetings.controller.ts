@@ -71,7 +71,8 @@ class MeetingsController extends Controller {
         body('address.state').isString(),
         body('address.zipCode').isNumeric(),
         param('id').isUUID(),
-      ], async (req: express.Request, res: express.Response) => {
+      ],
+      async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
         if (errors.length) {
           return res.status(400).json({ errors });
@@ -79,11 +80,12 @@ class MeetingsController extends Controller {
 
         const meeting = { ...req.body, id: req.params.id };
         const createdMeeting = await this.meetingsService.updateMeeting(meeting);
-        if(createdMeeting.id !== meeting.id) {
+        if (createdMeeting.id !== meeting.id) {
           return res.status(201).send(`${this.basePath}/${createdMeeting.id}`); // id was not found and new resource created
         }
         return res.status(200).send(`${this.basePath}/${createdMeeting.id}`); // updated resource
-    });
+      }
+    );
 
     this.router.delete('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);

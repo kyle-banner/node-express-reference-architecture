@@ -14,7 +14,7 @@ class EmployeesService implements IEmployeesService {
     const employeeEntities = await this.employeeRepository.find();
     if (employeeEntities.length) {
       const employeeDtos: EmployeeDto[] = [];
-      employeeEntities.forEach(entity => {
+      employeeEntities.forEach((entity) => {
         employeeDtos.push(employeeEntityToDomainMapper.map(entity));
       });
       return employeeDtos;

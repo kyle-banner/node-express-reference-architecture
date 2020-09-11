@@ -39,7 +39,13 @@ class EmployeesController extends Controller {
 
     this.router.post(
       '/',
-      [body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty(), body('practice').not().isEmpty(), body('title').not().isEmpty()],
+      [
+        body('email').isEmail(),
+        body('name.firstName').not().isEmpty(),
+        body('name.lastName').not().isEmpty(),
+        body('practice').not().isEmpty(),
+        body('title').not().isEmpty(),
+      ],
       async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
         if (errors.length) {
@@ -54,7 +60,11 @@ class EmployeesController extends Controller {
     this.router.put(
       '/:id',
       [
-        body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty(), body('practice').not().isEmpty(), body('title').not().isEmpty(),
+        body('email').isEmail(),
+        body('name.firstName').not().isEmpty(),
+        body('name.lastName').not().isEmpty(),
+        body('practice').not().isEmpty(),
+        body('title').not().isEmpty(),
         param('id').isUUID(),
       ],
       async (req: express.Request, res: express.Response) => {
@@ -65,7 +75,7 @@ class EmployeesController extends Controller {
 
         const employee = { ...req.body, id: req.params.id };
         const createdEmployee = await this.employeesService.updateEmployee(employee);
-        if(createdEmployee.id !== employee.id) {
+        if (createdEmployee.id !== employee.id) {
           return res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id was not found and new resource created
         }
         return res.status(200).send(`${this.basePath}/${createdEmployee.id}`); // updated resource

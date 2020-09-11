@@ -11,17 +11,19 @@ class MeetingsService implements IMeetingsService {
   private meetingRepository = getRepository(MeetingEntity);
 
   async getMeetings(): Promise<MeetingDto[]> {
-    const meetingEntities = await this.meetingRepository.find({join: {
-      alias: "meeting",
-      leftJoinAndSelect: {
-          address: "meeting.address",
-          host: "meeting.hostEmployeeId",
-          joining: "meeting.joiningEmployeeId"
-        }
-    }});
+    const meetingEntities = await this.meetingRepository.find({
+      join: {
+        alias: 'meeting',
+        leftJoinAndSelect: {
+          address: 'meeting.address',
+          host: 'meeting.hostEmployeeId',
+          joining: 'meeting.joiningEmployeeId',
+        },
+      },
+    });
     if (meetingEntities.length) {
       const meetingDtos: MeetingDto[] = [];
-      meetingEntities.forEach(entity => {
+      meetingEntities.forEach((entity) => {
         meetingDtos.push(meetingEntityToDomainMapper.map(entity));
       });
       return meetingDtos;
@@ -30,14 +32,16 @@ class MeetingsService implements IMeetingsService {
   }
 
   async getMeetingById(id: string): Promise<MeetingDto | undefined> {
-    const meetingEntity = await this.meetingRepository.findOne(id, {join: {
-      alias: "meeting",
-      leftJoinAndSelect: {
-          address: "meeting.address",
-          host: "meeting.hostEmployeeId",
-          joining: "meeting.joiningEmployeeId"
-        }
-    }});
+    const meetingEntity = await this.meetingRepository.findOne(id, {
+      join: {
+        alias: 'meeting',
+        leftJoinAndSelect: {
+          address: 'meeting.address',
+          host: 'meeting.hostEmployeeId',
+          joining: 'meeting.joiningEmployeeId',
+        },
+      },
+    });
     if (meetingEntity) return meetingEntityToDomainMapper.map(meetingEntity);
     return undefined;
   }

@@ -8,7 +8,7 @@ export class Address {
   @Column()
   line1!: string;
 
-  @Column({nullable: true, default: null})
+  @Column({ nullable: true, default: null })
   line2?: string;
 
   @Column()

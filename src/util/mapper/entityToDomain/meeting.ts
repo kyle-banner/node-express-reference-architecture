@@ -8,7 +8,7 @@ mapper.map = (entity: MeetingEntity) => {
     id: entity.id,
     employees: [entity.hostEmployeeId, entity.joiningEmployeeId],
     scheduledTime: entity.scheduledTime,
-    address: entity.address
+    address: entity.address,
   };
   return meetingDto;
 };
