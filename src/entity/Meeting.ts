@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Address } from './Address';
 import { Employee } from './Employee';
 
@@ -10,15 +10,15 @@ export class Meeting {
   @Column()
   scheduledTime!: string;
 
-  @OneToOne((type) => Address, { cascade: true })
+  @ManyToOne((type) => Address, { cascade: true })
   @JoinColumn({ name: 'addressId' })
   address!: Address;
 
-  @OneToOne((type) => Employee, { cascade: true })
+  @ManyToOne((type) => Employee, { cascade: true })
   @JoinColumn({ name: 'hostEmployeeId' })
   hostEmployeeId!: string;
 
-  @OneToOne((type) => Employee, { cascade: true })
+  @ManyToOne((type) => Employee, { cascade: true })
   @JoinColumn({ name: 'joiningEmployeeId' })
   joiningEmployeeId!: string;
 }
