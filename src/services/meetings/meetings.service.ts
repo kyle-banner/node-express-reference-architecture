@@ -30,7 +30,14 @@ class MeetingsService implements IMeetingsService {
   }
 
   async getMeetingById(id: string): Promise<MeetingDto | undefined> {
-    const meetingEntity = await this.meetingRepository.findOne(id);
+    const meetingEntity = await this.meetingRepository.findOne(id, {join: {
+      alias: "meeting",
+      leftJoinAndSelect: {
+          address: "meeting.address",
+          host: "meeting.hostEmployeeId",
+          joining: "meeting.joiningEmployeeId"
+        }
+    }});
     if (meetingEntity) return meetingEntityToDomainMapper.map(meetingEntity);
     return undefined;
   }

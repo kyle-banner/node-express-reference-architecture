@@ -55,7 +55,7 @@ class EmployeesController extends Controller {
       '/:id',
       [
         body('email').isEmail(), body('name.firstName').not().isEmpty(), body('name.lastName').not().isEmpty(), body('practice').not().isEmpty(), body('title').not().isEmpty(),
-        param('id').not().isEmpty(),
+        param('id').isUUID(),
       ],
       async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);

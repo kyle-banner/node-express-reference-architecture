@@ -24,7 +24,7 @@ class MeetingsController extends Controller {
       res.send(meetings);
     });
 
-    this.router.get('/:id', [param('id').not().isEmpty()], async (req: express.Request, res: express.Response) => {
+    this.router.get('/:id', [param('id').isUUID()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
         return res.status(400).json({ errors });
