@@ -11,7 +11,14 @@ class MeetingsService implements IMeetingsService {
   private meetingRepository = getRepository(MeetingEntity);
 
   async getMeetings(): Promise<MeetingDto[]> {
-    const meetingEntities = await this.meetingRepository.find();
+    const meetingEntities = await this.meetingRepository.find({join: {
+      alias: "meeting",
+      leftJoinAndSelect: {
+          address: "meeting.address",
+          host: "meeting.hostEmployeeId",
+          joining: "meeting.joiningEmployeeId"
+        }
+    }});
     if (meetingEntities.length) {
       const meetingDtos: MeetingDto[] = [];
       meetingEntities.forEach(entity => {
@@ -38,8 +45,8 @@ class MeetingsService implements IMeetingsService {
     const meetingEntityToSave = meetingDomainToEntityMapper.map(updateMeetingRequest);
     const employeeEntity = await this.meetingRepository.findOne(meetingEntityToSave.id);
     let updatedEmployeeEntity: MeetingEntity;
-    if (employeeEntity) {
-      await this.meetingRepository.update(meetingEntityToSave.id, meetingEntityToSave);
+    if (employeeEntity && employeeEntity.id) {
+      await this.meetingRepository.update(employeeEntity.id, meetingEntityToSave);
       updatedEmployeeEntity = meetingEntityToSave;
     } else {
       updatedEmployeeEntity = await this.meetingRepository.save(meetingEntityToSave);

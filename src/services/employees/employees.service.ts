@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import EmployeeDto from 'src/dto/Employee';
-import CreateEmployeeRequest from 'src/dto/CreateEmployeeRequest';
 import { employee as employeeEntityToDomainMapper } from '../../util/mapper/entityToDomain';
 import { employee as employeeDomainToEntityMapper } from '../../util/mapper/domainToEntity';
 import { Employee as EmployeeEntity } from '../../entity/Employee';
@@ -29,8 +28,8 @@ class EmployeesService implements IEmployeesService {
     return undefined;
   }
 
-  async createEmployee(createEmployeeRequest: CreateEmployeeRequest): Promise<EmployeeDto> {
-    const employeeEntity = employeeDomainToEntityMapper.map({id: 1234, ...createEmployeeRequest}); // the id should not be required here
+  async createEmployee(createEmployeeRequest: EmployeeDto): Promise<EmployeeDto> {
+    const employeeEntity = employeeDomainToEntityMapper.map(createEmployeeRequest);
     const entityResponse = await this.employeeRepository.save(employeeEntity);
     return employeeEntityToDomainMapper.map(entityResponse);
   }
@@ -39,8 +38,8 @@ class EmployeesService implements IEmployeesService {
     const employeeEntityToSave = employeeDomainToEntityMapper.map(updateEmployeeRequest);
     const employeeEntity = await this.employeeRepository.findOne(employeeEntityToSave.id);
     let updatedEmployeeEntity: EmployeeEntity;
-    if (employeeEntity) {
-      await this.employeeRepository.update(employeeEntityToSave.id, employeeEntityToSave);
+    if (employeeEntity && employeeEntity.id) {
+      await this.employeeRepository.update(employeeEntity.id, employeeEntityToSave);
       updatedEmployeeEntity = employeeEntityToSave;
     } else {
       updatedEmployeeEntity = await this.employeeRepository.save(employeeEntityToSave);

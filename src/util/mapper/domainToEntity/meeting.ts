@@ -1,4 +1,3 @@
-import EntityToDomainMapper from './mapper';
 import { Meeting as MeetingEntity } from '../../../entity/Meeting';
 import MeetingDto from 'src/dto/Meeting';
 import DomainToEntityMapper from './mapper';
@@ -7,8 +6,8 @@ const mapper = new DomainToEntityMapper<MeetingDto, MeetingEntity>();
 mapper.map = (dto: MeetingDto) => {
   const meetingEntity: MeetingEntity = {
     id: dto.id,
-    hostEmployeeId: dto.employeeIds[0],
-    joiningEmployeeId: dto.employeeIds[1],
+    hostEmployeeId: dto.employees[0],
+    joiningEmployeeId: dto.employees[1],
     scheduledTime: dto.scheduledTime,
     address: dto.address
   };

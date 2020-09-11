@@ -11,14 +11,14 @@ export class Meeting {
   scheduledTime!: string;
 
   @OneToOne((type) => Address, { cascade: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'addressId' })
   address!: Address;
 
   @OneToOne((type) => Employee, { cascade: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'hostEmployeeId' })
   hostEmployeeId!: string;
 
   @OneToOne((type) => Employee, { cascade: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'joiningEmployeeId' })
   joiningEmployeeId!: string;
 }

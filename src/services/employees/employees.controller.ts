@@ -24,7 +24,7 @@ class EmployeesController extends Controller {
       res.send(employees);
     });
 
-    this.router.get('/:id', [param('id').isInt()], async (req: express.Request, res: express.Response) => {
+    this.router.get('/:id', [param('id').isUUID()], async (req: express.Request, res: express.Response) => {
       const errors = requestValidationFailures(req);
       if (errors.length) {
         return res.status(400).json({ errors });
