@@ -1,21 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 import { Address } from './Address';
 import { Employee } from './Employee';
 
 @Entity()
 export class Meeting {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  id?: string | undefined;
 
   @Column()
   scheduledTime!: string;
 
   @OneToOne((type) => Address, { cascade: true })
+  @JoinColumn()
   address!: Address;
 
   @OneToOne((type) => Employee, { cascade: true })
-  hostEmployeeId!: number;
+  @JoinColumn()
+  hostEmployeeId!: string;
 
   @OneToOne((type) => Employee, { cascade: true })
-  joiningEmployeeId!: number;
+  @JoinColumn()
+  joiningEmployeeId!: string;
 }

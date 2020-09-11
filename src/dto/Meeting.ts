@@ -1,7 +1,7 @@
 import Address from './Address';
 
 interface Meeting {
-  id: number;
+  id?: string;
   address: Address;
   employeeIds: number[];
   scheduledTime: string;

@@ -32,10 +32,9 @@ class EmployeesController extends Controller {
 
       const employee = await this.employeesService.getEmployeeById(req.params.id);
       if (employee) {
-        res.send(employee);
-        return;
+        return res.send(employee);
       }
-      res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
+      return res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
     });
 
     this.router.post(
@@ -48,7 +47,7 @@ class EmployeesController extends Controller {
         }
 
         const createdEmployee = await this.employeesService.createEmployee(req.body);
-        res.status(201).send(`${this.basePath}/${createdEmployee.id}`);
+        return res.status(201).send(`${this.basePath}/${createdEmployee.id}`);
       }
     );
 
@@ -67,8 +66,7 @@ class EmployeesController extends Controller {
         const employee = { ...req.body, id: req.params.id };
         const createdEmployee = await this.employeesService.updateEmployee(employee);
         if(createdEmployee.id !== employee.id) {
-          res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id was not found and new resource created
-          return;
+          return res.status(201).send(`${this.basePath}/${createdEmployee.id}`); // id was not found and new resource created
         }
         return res.status(200).send(`${this.basePath}/${createdEmployee.id}`); // updated resource
       }
@@ -83,7 +81,7 @@ class EmployeesController extends Controller {
       if (deleteResult) {
         return res.status(204).send();
       }
-      res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
+      return res.status(404).send(`${responseMessages.EMPLOYEE_ID_NOT_FOUND} ${req.params.id}`);
     });
   }
 }

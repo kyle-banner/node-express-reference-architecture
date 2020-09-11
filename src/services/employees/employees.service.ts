@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import IEmployeesService from './employees.interface';
 import EmployeeDto from 'src/dto/Employee';
 import CreateEmployeeRequest from 'src/dto/CreateEmployeeRequest';
-import { employee as employeeEntityToDomainMapper, employee } from '../../util/mapper/entityToDomain';
+import { employee as employeeEntityToDomainMapper } from '../../util/mapper/entityToDomain';
 import { employee as employeeDomainToEntityMapper } from '../../util/mapper/domainToEntity';
 import { Employee as EmployeeEntity } from '../../entity/Employee';
 import { getRepository } from 'typeorm';
@@ -13,11 +13,14 @@ class EmployeesService implements IEmployeesService {
 
   async getEmployees(): Promise<EmployeeDto[]> {
     const employeeEntities = await this.employeeRepository.find();
-    const employeeDtos: EmployeeDto[] = [];
-    employeeEntities.forEach(entity => {
-      employeeDtos.push(employeeEntityToDomainMapper.map(entity));
-    });
-    return employeeDtos;
+    if (employeeEntities.length) {
+      const employeeDtos: EmployeeDto[] = [];
+      employeeEntities.forEach(entity => {
+        employeeDtos.push(employeeEntityToDomainMapper.map(entity));
+      });
+      return employeeDtos;
+    }
+    return [];
   }
 
   async getEmployeeById(id: string): Promise<EmployeeDto | undefined> {
