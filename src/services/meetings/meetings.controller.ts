@@ -47,6 +47,7 @@ class MeetingsController extends Controller {
         body('address.city').isString(),
         body('address.state').isString(),
         body('address.zipCode').isNumeric(),
+        param('id').isUUID(),
       ],
       async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
@@ -69,6 +70,7 @@ class MeetingsController extends Controller {
         body('address.city').isString(),
         body('address.state').isString(),
         body('address.zipCode').isNumeric(),
+        param('id').isUUID(),
       ], async (req: express.Request, res: express.Response) => {
         const errors = requestValidationFailures(req);
         if (errors.length) {

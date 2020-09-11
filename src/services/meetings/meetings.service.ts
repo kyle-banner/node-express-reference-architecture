@@ -3,14 +3,12 @@ import IMeetingsService from './meetings.interface';
 import { getRepository } from 'typeorm';
 import MeetingDto from 'src/dto/Meeting';
 import { Meeting as MeetingEntity } from '../../entity/Meeting';
-import { Address as AddressEntity } from '../../entity/Address';
 import { meeting as meetingEntityToDomainMapper } from '../../util/mapper/entityToDomain';
 import { meeting as meetingDomainToEntityMapper } from '../../util/mapper/domainToEntity';
 
 @injectable()
 class MeetingsService implements IMeetingsService {
   private meetingRepository = getRepository(MeetingEntity);
-  private addressRepository = getRepository(AddressEntity);
 
   async getMeetings(): Promise<MeetingDto[]> {
     const meetingEntities = await this.meetingRepository.find({join: {
