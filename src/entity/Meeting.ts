@@ -10,7 +10,7 @@ export class Meeting {
   @Column()
   scheduledTime!: string;
 
-  @ManyToOne((type) => Address, { cascade: true })
+  @ManyToOne((type) => Address, { cascade: true, onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'addressId' })
   address!: Address;
 

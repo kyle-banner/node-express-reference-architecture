@@ -55,7 +55,7 @@ class MeetingsService implements IMeetingsService {
     const meetingEntity = await this.meetingRepository.findOne(meetingEntityToSave.id);
     let updatedMeetingEntity: MeetingEntity;
     if (meetingEntity && meetingEntity.id) {
-      await this.meetingRepository.update(meetingEntity.id, meetingEntityToSave);
+      await this.meetingRepository.update(meetingEntity.id, meetingEntityToSave); // bug here where address is not saved, cascade on update isn't working
       updatedMeetingEntity = meetingEntityToSave;
     } else {
       updatedMeetingEntity = await this.meetingRepository.save(meetingEntityToSave);
